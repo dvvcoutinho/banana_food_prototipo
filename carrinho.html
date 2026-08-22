@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Carrinho de Pedidos - Banana Food: Revise seus itens, aplique cupom e simule sua compra.">
+  <title>Meu Pedido | Banana Food</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/carrinho.css">
+</head>
+
+<body>
+
+  <aside class="topo-academico" aria-label="Identificação Acadêmica">
+    <span>🎓 <strong>Projeto Acadêmico</strong> | CESMAC - 5º Período</span>
+    <aside>
+      <span>Responsável: Davi Emanuel</span>
+    </aside>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-conteudo">
+      <a href="index.html" class="site-logo" aria-label="Página Inicial">
+        <span class="logo-icone" role="img" aria-label="Ícone">🍌</span>
+        <div class="logo-texto">
+          <strong class="logo-titulo">Banana Food</strong>
+          <span class="logo-subtitulo">Doçura & Caldas Nobres</span>
+        </div>
+      </a>
+
+      <button type="button" class="botao-menu-mobile" id="botao-menu-mobile" aria-label="Abrir Menu">
+        ☰
+      </button>
+
+      <nav class="menu-principal" id="menu-principal-nav" aria-label="Navegação Principal">
+        <ul class="menu-lista">
+          <li><a href="index.html">🏠 Início</a></li>
+          <li><a href="menu.html">📜 Cardápio de Caldas</a></li>
+          <li>
+            <a href="carrinho.html" class="ativo botao-carrinho-header">
+              🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
+            </a>
+          </li>
+          <li><a href="login-cadastro.html">👤 Conta / Acesso</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="calda-topo">
+      <svg class="calda-onda-svg" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          d="M0,0 L1200,0 L1200,15 C1080,45 960,5 840,40 C720,10 600,48 480,18 C360,42 240,8 120,38 C60,15 0,35 0,15 Z">
+        </path>
+      </svg>
+      <div class="calda-gotas-container">
+        <span class="calda-gota pos-1" aria-hidden="true"></span>
+        <span class="calda-gota pos-2" aria-hidden="true"></span>
+        <span class="calda-gota pos-3" aria-hidden="true"></span>
+        <span class="calda-gota pos-4" aria-hidden="true"></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="conteudo-principal">
+
+    <aside class="cartao-responsavel" aria-label="Responsável pelo Projeto">
+      <div class="responsavel-info">
+        <span class="responsavel-avatar" role="img" aria-label="Davi Emanuel">👨‍💻</span>
+        <div class="responsavel-detalhes">
+          <h4>Responsável pelo Projeto</h4>
+          <p>Aluno: <strong>Davi Emanuel</strong> | <strong>5º Período - CESMAC</strong></p>
+        </div>
+      </div>
+      <div class="responsavel-tags">
+        <span class="tag-topico">Tópico: Gestão de Pedidos</span>
+        <span class="tag-status">Concluído 100%</span>
+      </div>
+    </aside>
+
+    <header class="secao-cabecalho">
+      <span class="secao-subtitulo">Seu Pedido Doce</span>
+      <h1 class="secao-titulo">Carrinho de Compras</h1>
+      <div class="secao-divisor" aria-hidden="true"></div>
+    </header>
+
+    <div class="carrinho-layout">
+
+      <section class="itens-carrinho-secao" aria-label="Itens no Carrinho">
+        <div class="lista-itens" id="carrinho-lista-container"></div>
+
+        <article class="carrinho-vazio-box" id="carrinho-vazio-aviso" style="display: none;">
+          <span class="carrinho-vazio-icone" role="img" aria-label="Carrinho Vazio">🍌</span>
+          <h3>Seu carrinho do Banana Food está vazio!</h3>
+          <p>Parece que você ainda não adicionou nenhuma sobremesa deliciosa ao seu pedido.</p>
+          <a href="menu.html" class="btn btn-primary btn-lg">Explorar Nosso Cardápio ➔</a>
+        </article>
+
+        <section class="cupom-box" aria-label="Cupom de Desconto">
+          <label for="input-cupom" class="form-label" style="font-weight: 700;">🎟️ Cupom:</label>
+          <input type="text" id="input-cupom" class="cupom-input" placeholder="Digite CESMAC10 ou BANANAFOOD"
+            aria-label="Código do Cupom de Desconto">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="aplicarCupom()">
+            Aplicar
+          </button>
+        </section>
+      </section>
+
+      <aside class="resumo-pedido-aside" id="resumo-pedido-aside" aria-label="Resumo dos Valores">
+        <header class="resumo-drip-header">
+          <svg viewBox="0 0 500 30" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,0 C120,25 240,5 360,28 C440,10 480,25 500,15 L500,0 Z"></path>
+          </svg>
+          <h2>Resumo do Pedido</h2>
+        </header>
+
+        <div class="resumo-corpo">
+          <div class="resumo-linha">
+            <span>Subtotal dos Produtos:</span>
+            <strong id="resumo-subtotal">R$ 0,00</strong>
+          </div>
+
+          <div class="resumo-linha desconto">
+            <span>Desconto Acadêmico CESMAC:</span>
+            <strong id="resumo-desconto">- R$ 0,00</strong>
+          </div>
+
+          <div class="resumo-linha">
+            <span>Taxa de Entrega Fixa:</span>
+            <span>R$ 5,00</span>
+          </div>
+
+          <div class="resumo-divisor" aria-hidden="true"></div>
+
+          <div class="resumo-total">
+            <span>Total a Pagar:</span>
+            <span class="total-preco" id="resumo-total">R$ 0,00</span>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-lg" onclick="finalizarPedidoSimulado()" style="width: 100%;">
+            Finalizar Pedido Simulado ➔
+          </button>
+
+          <aside class="alerta-academico-carrinho">
+            ℹ️ <strong>Nota Acadêmica:</strong> Este é um protótipo visual desenvolvido por Davi Emanuel (CESMAC). Ao
+            clicar em finalizar, o pedido será simulado localmente sem transações reais.
+          </aside>
+        </div>
+      </aside>
+
+    </div>
+
+    <dialog id="modal-pedido-confirmado" class="modal-pedido" aria-labelledby="modal-titulo">
+      <header class="modal-cabecalho">
+        <h3 id="modal-titulo">🎉 Pedido Confirmado!</h3>
+      </header>
+      <div class="modal-conteudo">
+        <span class="modal-icone-sucesso" role="img" aria-label="Sucesso">🍌</span>
+        <p><strong>Parabéns! Sua sobremesa especial do Banana Food já começou a ser preparada.</strong></p>
+
+        <div class="modal-detalhes-compra">
+          <p><strong>Status:</strong> Pedido Acadêmico Simulado</p>
+          <p><strong>Previsão Visual:</strong> 20 a 30 minutos</p>
+          <p><strong>Entrega:</strong> No Campus CESMAC</p>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="fecharModalPedido()">
+          Voltar ao Cardápio
+        </button>
+      </div>
+    </dialog>
+
+  </main>
+
+  <footer class="site-footer">
+    <svg class="footer-onda-superior" viewBox="0 0 1200 35" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,35 L1200,35 L1200,10 C1000,40 800,0 600,25 C400,0 200,40 0,10 Z"></path>
+    </svg>
+
+    <div class="footer-conteudo">
+      <div class="footer-grid">
+        <section class="footer-coluna">
+          <h3>🍌 Banana Food</h3>
+          <p>
+            Módulo de carrinho com cálculo em tempo real de itens, subtotais e cupons de desconto sem necessidade de
+            back-end.
+          </p>
+        </section>
+
+        <nav class="footer-coluna" aria-label="Navegação Rodapé">
+          <h3>🔗 Navegação</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">➔ Página Inicial</a></li>
+            <li><a href="menu.html">➔ Cardápio Completo</a></li>
+            <li><a href="carrinho.html">➔ Carrinho de Compras</a></li>
+            <li><a href="login-cadastro.html">➔ Acessar Conta</a></li>
+          </ul>
+        </nav>
+
+        <section class="footer-coluna">
+          <h3>👨‍🎓 Responsável pelo Módulo</h3>
+          <div class="footer-autores">
+            <div class="autor-item">
+              <span>Davi Emanuel</span>
+              <span class="funcao">5º Período - CESMAC</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="footer-inferior">
+        <p>© 2026 Banana Food - Davi Emanuel (5º Período - CESMAC)</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

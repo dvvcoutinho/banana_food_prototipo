@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Banana Food: Projeto Acadêmico CESMAC - Sobremesas com calda escorrendo, brilho e sombras.">
+    <title>Banana Food | Projeto Acadêmico CESMAC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+    <aside class="topo-academico" aria-label="Identificação Acadêmica">
+        <span>🎓 <strong>Projeto Acadêmico</strong> | CESMAC - 5º Período</span>
+        <aside>
+            <span>Responsável: Davi Emanuel</span>
+        </aside>
+    </aside>
+
+    <header class="site-header">
+        <div class="header-conteudo">
+            <a href="index.html" class="site-logo" aria-label="Página Inicial do Banana Food">
+                <span class="logo-icone" role="img" aria-label="Banana Food">🍌</span>
+                <div class="logo-texto">
+                    <strong class="logo-titulo">Banana Food</strong>
+                    <span class="logo-subtitulo">Doçura & Caldas Nobres</span>
+                </div>
+            </a>
+
+            <button type="button" class="botao-menu-mobile" id="botao-menu-mobile" aria-label="Abrir Menu de Navegação">
+                ☰
+            </button>
+
+            <nav class="menu-principal" id="menu-principal-nav" aria-label="Menu Principal">
+                <ul class="menu-lista">
+                    <li><a href="index.html" class="ativo">🏠 Início</a></li>
+                    <li><a href="menu.html">📜 Cardápio de Caldas</a></li>
+                    <li>
+                        <a href="carrinho.html" class="botao-carrinho-header">
+                            🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
+                        </a>
+                    </li>
+                    <li><a href="login-cadastro.html">👤 Conta / Acesso</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="calda-topo">
+            <svg class="calda-onda-svg" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true">
+                <path
+                    d="M0,0 L1200,0 L1200,15 C1080,45 960,5 840,40 C720,10 600,48 480,18 C360,42 240,8 120,38 C60,15 0,35 0,15 Z">
+                </path>
+            </svg>
+            <div class="calda-gotas-container">
+                <span class="calda-gota pos-1" aria-hidden="true"></span>
+                <span class="calda-gota pos-2" aria-hidden="true"></span>
+                <span class="calda-gota pos-3" aria-hidden="true"></span>
+                <span class="calda-gota pos-4" aria-hidden="true"></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="conteudo-principal">
+
+        <aside class="cartao-responsavel" aria-label="Responsável pelo Projeto">
+            <div class="responsavel-info">
+                <span class="responsavel-avatar" role="img" aria-label="Davi Emanuel">👨‍🎓</span>
+                <div class="responsavel-detalhes">
+                    <h4>Responsável pelo Projeto: Davi Emanuel</h4>
+                    <p>Curso / Instituição: <strong>5º Período - CESMAC</strong> | Sistema: <strong>Banana Food</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="responsavel-tags">
+                <span class="tag-topico">Tópico: Arquitetura & Interface</span>
+                <span class="tag-status">Concluído 100%</span>
+            </div>
+        </aside>
+
+        <section class="hero-banner" aria-labelledby="titulo-hero">
+            <div class="hero-conteudo">
+                <span class="hero-tag">✨ Sabor Artesanal & Caldas Nobres</span>
+                <h1 class="hero-titulo" id="titulo-hero">
+                    O irresistível sabor de <span>Banana Food</span> com calda escorrendo.
+                </h1>
+                <p class="hero-descricao">
+                    Sobremesas artesanais sofisticadas, com caldas quentes de toffee dourado, caramelo e frutas nobres.
+                    Desenvolvido para encantar o paladar e os olhos.
+                </p>
+                <div class="hero-acoes">
+                    <a href="menu.html" class="btn btn-primary btn-lg">Explorar Cardápio ➔</a>
+                    <a href="login-cadastro.html" class="btn btn-secondary btn-lg">Criar Conta Visual</a>
+                </div>
+            </div>
+
+            <figure class="hero-visual">
+                <div class="hero-disco-calda">
+                    <span class="emoji-principal" role="img" aria-label="Banana com Calda">🍌</span>
+                </div>
+                <figcaption class="sr-only">Sobremesa especial de banana com calda de caramelo escorrendo</figcaption>
+            </figure>
+        </section>
+
+        <section class="secao-academicos" aria-labelledby="titulo-academicos">
+            <header class="secao-cabecalho">
+                <span class="secao-subtitulo">Estrutura do Projeto</span>
+                <h2 class="secao-titulo" id="titulo-academicos">Módulos Desenvolvidos por Davi Emanuel</h2>
+                <div class="secao-divisor" aria-hidden="true"></div>
+            </header>
+
+            <div class="grid-responsaveis">
+                <article class="card-responsavel-projeto">
+                    <header class="card-responsavel-header">
+                        <span class="responsavel-foto-box" role="img" aria-label="Layout">🎨</span>
+                        <div class="responsavel-identificacao">
+                            <h3>Davi Emanuel</h3>
+                            <span>Tópico 1: Home & Identidade Visual</span>
+                        </div>
+                    </header>
+                    <ul class="card-responsavel-tarefas">
+                        <li><span class="icone-check">✓</span> Estrutura semântica e tags nativas</li>
+                        <li><span class="icone-check">✓</span> Efeito de calda escorrendo com SVG</li>
+                        <li><span class="icone-check">✓</span> Responsividade & Flexbox</li>
+                    </ul>
+                </article>
+
+                <article class="card-responsavel-projeto">
+                    <header class="card-responsavel-header">
+                        <span class="responsavel-foto-box" role="img" aria-label="Cardápio">📋</span>
+                        <div class="responsavel-identificacao">
+                            <h3>Davi Emanuel</h3>
+                            <span>Tópico 2: Cardápio & Filtros</span>
+                        </div>
+                    </header>
+                    <ul class="card-responsavel-tarefas">
+                        <li><span class="icone-check">✓</span> Vitrine semântica de produtos</li>
+                        <li><span class="icone-check">✓</span> Busca dinâmica e categorias</li>
+                        <li><span class="icone-check">✓</span> Badges de calda & valores</li>
+                    </ul>
+                </article>
+
+                <article class="card-responsavel-projeto">
+                    <header class="card-responsavel-header">
+                        <span class="responsavel-foto-box" role="img" aria-label="Carrinho">🛒</span>
+                        <div class="responsavel-identificacao">
+                            <h3>Davi Emanuel</h3>
+                            <span>Tópico 3: Carrinho & JS Puro</span>
+                        </div>
+                    </header>
+                    <ul class="card-responsavel-tarefas">
+                        <li><span class="icone-check">✓</span> Armazenamento em LocalStorage</li>
+                        <li><span class="icone-check">✓</span> Cálculos de subtotal e cupom</li>
+                        <li><span class="icone-check">✓</span> Simulação do checkout visual</li>
+                    </ul>
+                </article>
+
+                <article class="card-responsavel-projeto">
+                    <header class="card-responsavel-header">
+                        <span class="responsavel-foto-box" role="img" aria-label="Autenticação">🔐</span>
+                        <div class="responsavel-identificacao">
+                            <h3>Davi Emanuel</h3>
+                            <span>Tópico 4: Acesso & Formulários</span>
+                        </div>
+                    </header>
+                    <ul class="card-responsavel-tarefas">
+                        <li><span class="icone-check">✓</span> Formulários semânticos e legendas</li>
+                        <li><span class="icone-check">✓</span> Alternância de abas fluida</li>
+                        <li><span class="icone-check">✓</span> Notificações interativas (Toast)</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="secao-destaques" aria-labelledby="titulo-destaques">
+            <header class="secao-cabecalho">
+                <span class="secao-subtitulo">Nossas Especialidades</span>
+                <h2 class="secao-titulo" id="titulo-destaques">Caldas que Mais Escorrem Elogios</h2>
+                <div class="secao-divisor" aria-hidden="true"></div>
+            </header>
+
+            <div class="grid-destaques">
+                <article class="card-produto-destaque">
+                    <header class="card-topo-calda">
+                        <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+                            <path d="M0,0 C120,40 180,5 260,35 C380,55 420,10 500,30 L500,0 Z"></path>
+                        </svg>
+                    </header>
+                    <figure class="card-imagem-area">
+                        <span role="img" aria-label="Banoffee Especial">🍌</span>
+                    </figure>
+                    <div class="card-corpo">
+                        <div class="card-info">
+                            <h3>Banoffee Suprema com Toffee</h3>
+                            <p>Camadas de banana fresca com calda toffee dourada fervida no ponto de brilho espelhado.
+                            </p>
+                        </div>
+                        <footer class="card-rodape">
+                            <span class="preco-tag">R$ 16,50</span>
+                            <a href="menu.html" class="btn btn-secondary btn-sm">Ver Detalhes</a>
+                        </footer>
+                    </div>
+                </article>
+
+                <article class="card-produto-destaque">
+                    <header class="card-topo-calda">
+                        <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+                            <path d="M0,0 C100,30 190,50 300,15 C390,45 440,10 500,35 L500,0 Z"></path>
+                        </svg>
+                    </header>
+                    <figure class="card-imagem-area">
+                        <span role="img" aria-label="Bolo de Banana">🎂</span>
+                    </figure>
+                    <div class="card-corpo">
+                        <div class="card-info">
+                            <h3>Bolo Vulcão de Banana Caramelizada</h3>
+                            <p>Massa fofinha com centro quente e erupção de calda cremosa e bananas flambadas.</p>
+                        </div>
+                        <footer class="card-rodape">
+                            <span class="preco-tag">R$ 26,90</span>
+                            <a href="menu.html" class="btn btn-secondary btn-sm">Ver Detalhes</a>
+                        </footer>
+                    </div>
+                </article>
+
+                <article class="card-produto-destaque">
+                    <header class="card-topo-calda">
+                        <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+                            <path d="M0,0 C140,50 200,10 320,40 C400,20 450,50 500,15 L500,0 Z"></path>
+                        </svg>
+                    </header>
+                    <figure class="card-imagem-area">
+                        <span role="img" aria-label="Banana Split">🍨</span>
+                    </figure>
+                    <div class="card-corpo">
+                        <div class="card-info">
+                            <h3>Banana Split com Dupla Calda</h3>
+                            <p>Sorvetes cremosos com banana fatiada e cascata de chocolate nobre e caramelo salgado.</p>
+                        </div>
+                        <footer class="card-rodape">
+                            <span class="preco-tag">R$ 24,90</span>
+                            <a href="menu.html" class="btn btn-secondary btn-sm">Ver Detalhes</a>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="secao-diferenciais" aria-labelledby="titulo-diferenciais">
+            <header class="secao-cabecalho">
+                <span class="secao-subtitulo">Por que Nossas Caldas São Especiais?</span>
+                <h2 class="secao-titulo" id="titulo-diferenciais">Técnica, Brilho & Qualidade</h2>
+                <div class="secao-divisor" aria-hidden="true"></div>
+            </header>
+
+            <div class="grid-diferenciais">
+                <article class="item-diferencial">
+                    <div class="diferencial-icone" role="img" aria-label="Efeito de Brilho">✨</div>
+                    <h3>Brilho e Viscosidade</h3>
+                    <p>Preparo especial para manter a consistência e o reflexo reluzente mesmo após servir.</p>
+                </article>
+
+                <article class="item-diferencial">
+                    <div class="diferencial-icone" role="img" aria-label="Ingredientes Nobres">🍌</div>
+                    <h3>Ingredientes 100% Nobres</h3>
+                    <p>Bananas selecionadas, açúcar orgânico, baunilha em fava e doce de leite artesanal.</p>
+                </article>
+
+                <article class="item-diferencial">
+                    <div class="diferencial-icone" role="img" aria-label="Sem Conservantes">🌿</div>
+                    <h3>Artesanal & Puro</h3>
+                    <p>Sem corantes artificiais e sem conservantes químicos em todas as nossas caldas.</p>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <svg class="footer-onda-superior" viewBox="0 0 1200 35" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,35 L1200,35 L1200,10 C1000,40 800,0 600,25 C400,0 200,40 0,10 Z"></path>
+        </svg>
+
+        <div class="footer-conteudo">
+            <div class="footer-grid">
+                <section class="footer-coluna">
+                    <h3>🍌 Banana Food</h3>
+                    <p>
+                        Projeto acadêmico desenvolvido em HTML5 Semântico, CSS3 Moderno (Flexbox) e JavaScript Puro.
+                        Demonstração visual de alto padrão estético.
+                    </p>
+                </section>
+
+                <nav class="footer-coluna" aria-label="Links do Rodapé">
+                    <h3>🔗 Navegação Rápida</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">➔ Página Inicial</a></li>
+                        <li><a href="menu.html">➔ Cardápio Completo</a></li>
+                        <li><a href="carrinho.html">➔ Ver Pedido & Carrinho</a></li>
+                        <li><a href="login-cadastro.html">➔ Central de Usuário</a></li>
+                    </ul>
+                </nav>
+
+                <section class="footer-coluna">
+                    <h3>👨‍🎓 Responsável pelo Projeto</h3>
+                    <div class="footer-autores">
+                        <div class="autor-item">
+                            <span>Davi Emanuel</span>
+                            <span class="funcao">5º Período - CESMAC</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="footer-inferior">
+                <p>© 2026 Banana Food - Davi Emanuel (5º Período - CESMAC)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

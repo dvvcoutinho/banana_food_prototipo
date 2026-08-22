@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Cardápio Oficial - Banana Food: Escolha suas sobremesas favoritas com caldas nobres e artesanais.">
+  <title>Cardápio de Caldas | Banana Food</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+
+<body>
+
+  <aside class="topo-academico" aria-label="Identificação Acadêmica">
+    <span>🎓 <strong>Projeto Acadêmico</strong> | CESMAC - 5º Período</span>
+    <aside>
+      <span>Responsável: Davi Emanuel</span>
+    </aside>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-conteudo">
+      <a href="index.html" class="site-logo" aria-label="Página Inicial">
+        <span class="logo-icone" role="img" aria-label="Ícone">🍌</span>
+        <div class="logo-texto">
+          <strong class="logo-titulo">Banana Food</strong>
+          <span class="logo-subtitulo">Doçura & Caldas Nobres</span>
+        </div>
+      </a>
+
+      <button type="button" class="botao-menu-mobile" id="botao-menu-mobile" aria-label="Abrir Menu">
+        ☰
+      </button>
+
+      <nav class="menu-principal" id="menu-principal-nav" aria-label="Navegação Principal">
+        <ul class="menu-lista">
+          <li><a href="index.html">🏠 Início</a></li>
+          <li><a href="menu.html" class="ativo">📜 Cardápio de Caldas</a></li>
+          <li>
+            <a href="carrinho.html" class="botao-carrinho-header">
+              🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
+            </a>
+          </li>
+          <li><a href="login-cadastro.html">👤 Conta / Acesso</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="calda-topo">
+      <svg class="calda-onda-svg" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          d="M0,0 L1200,0 L1200,15 C1080,45 960,5 840,40 C720,10 600,48 480,18 C360,42 240,8 120,38 C60,15 0,35 0,15 Z">
+        </path>
+      </svg>
+      <div class="calda-gotas-container">
+        <span class="calda-gota pos-1" aria-hidden="true"></span>
+        <span class="calda-gota pos-2" aria-hidden="true"></span>
+        <span class="calda-gota pos-3" aria-hidden="true"></span>
+        <span class="calda-gota pos-4" aria-hidden="true"></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="conteudo-principal">
+
+    <aside class="cartao-responsavel" aria-label="Responsável pelo Cardápio">
+      <div class="responsavel-info">
+        <span class="responsavel-avatar" role="img" aria-label="Davi Emanuel">👨‍🎓</span>
+        <div class="responsavel-detalhes">
+          <h4>Responsável pelo Tópico: Cardápio, Filtros & Catálogo Visual</h4>
+          <p>Aluno: <strong>Davi Emanuel</strong> | <strong>5º Período - CESMAC</strong></p>
+        </div>
+      </div>
+      <div class="responsavel-tags">
+        <span class="tag-topico">Tópico: Cardápio Interativo</span>
+        <span class="tag-status">Concluído 100%</span>
+      </div>
+    </aside>
+
+    <header class="secao-cabecalho">
+      <span class="secao-subtitulo">Seleção Exclusiva</span>
+      <h1 class="secao-titulo">Cardápio de Sobremesas & Caldas</h1>
+      <div class="secao-divisor" aria-hidden="true"></div>
+    </header>
+
+    <section class="menu-controles" aria-label="Filtros do Cardápio">
+      <div class="busca-container">
+        <span class="busca-icone" aria-hidden="true">🔍</span>
+        <input type="search" id="input-busca-produtos" class="busca-input"
+          placeholder="Pesquise por sobremesa, banana, calda toffee, mel ou caramelo..."
+          aria-label="Buscar produtos no cardápio">
+      </div>
+
+      <nav class="categorias-nav" aria-label="Categorias de Produtos">
+        <button type="button" class="btn-categoria ativo" data-categoria="todos">
+          ✨ Todos os Itens
+        </button>
+        <button type="button" class="btn-categoria" data-categoria="doces">
+          🍮 Caldas & Doces
+        </button>
+        <button type="button" class="btn-categoria" data-categoria="bolos">
+          🎂 Bolos & Tortas
+        </button>
+        <button type="button" class="btn-categoria" data-categoria="sobremesas">
+          🥞 Sobremesas Especiais
+        </button>
+        <button type="button" class="btn-categoria" data-categoria="bebidas">
+          ☕ Bebidas com Calda
+        </button>
+      </nav>
+    </section>
+
+    <section class="vitrine-produtos" id="vitrine-produtos-grid" aria-label="Lista de Produtos"></section>
+
+  </main>
+
+  <footer class="site-footer">
+    <svg class="footer-onda-superior" viewBox="0 0 1200 35" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,35 L1200,35 L1200,10 C1000,40 800,0 600,25 C400,0 200,40 0,10 Z"></path>
+    </svg>
+
+    <div class="footer-conteudo">
+      <div class="footer-grid">
+        <section class="footer-coluna">
+          <h3>🍌 Banana Food</h3>
+          <p>
+            Cardápio desenvolvido com HTML5 Semântico, CSS Grid & Flexbox, e manipulação dinâmica de DOM em JavaScript
+            puro.
+          </p>
+        </section>
+
+        <nav class="footer-coluna" aria-label="Navegação Rodapé">
+          <h3>🔗 Navegação</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">➔ Página Inicial</a></li>
+            <li><a href="menu.html">➔ Cardápio Completo</a></li>
+            <li><a href="carrinho.html">➔ Carrinho de Compras</a></li>
+            <li><a href="login-cadastro.html">➔ Acessar Conta</a></li>
+          </ul>
+        </nav>
+
+        <section class="footer-coluna">
+          <h3>👨‍🎓 Responsável pelo Módulo</h3>
+          <div class="footer-autores">
+            <div class="autor-item">
+              <span>Davi Emanuel</span>
+              <span class="funcao">5º Período - CESMAC</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="footer-inferior">
+        <p>© 2026 Banana Food - Davi Emanuel (5º Período - CESMAC)</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

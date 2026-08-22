@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Central de Acesso - Banana Food: Entre ou crie sua conta para acompanhar seus pedidos doces.">
+    <title>Acesso & Cadastro | Banana Food</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login-cadastro.css">
+</head>
+
+<body>
+
+    <aside class="topo-academico" aria-label="Identificação Acadêmica">
+        <span>🎓 <strong>Projeto Acadêmico</strong> | CESMAC - 5º Período</span>
+        <aside>
+            <span>Responsável: Davi Emanuel</span>
+        </aside>
+    </aside>
+
+    <header class="site-header">
+        <div class="header-conteudo">
+            <a href="index.html" class="site-logo" aria-label="Página Inicial">
+                <span class="logo-icone" role="img" aria-label="Ícone">🍌</span>
+                <div class="logo-texto">
+                    <strong class="logo-titulo">Banana Food</strong>
+                    <span class="logo-subtitulo">Doçura & Caldas Nobres</span>
+                </div>
+            </a>
+
+            <button type="button" class="botao-menu-mobile" id="botao-menu-mobile" aria-label="Abrir Menu">
+                ☰
+            </button>
+
+            <nav class="menu-principal" id="menu-principal-nav" aria-label="Navegação Principal">
+                <ul class="menu-lista">
+                    <li><a href="index.html">🏠 Início</a></li>
+                    <li><a href="menu.html">📜 Cardápio de Caldas</a></li>
+                    <li>
+                        <a href="carrinho.html" class="botao-carrinho-header">
+                            🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
+                        </a>
+                    </li>
+                    <li><a href="login-cadastro.html" class="ativo">👤 Conta / Acesso</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="calda-topo">
+            <svg class="calda-onda-svg" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true">
+                <path
+                    d="M0,0 L1200,0 L1200,15 C1080,45 960,5 840,40 C720,10 600,48 480,18 C360,42 240,8 120,38 C60,15 0,35 0,15 Z">
+                </path>
+            </svg>
+            <div class="calda-gotas-container">
+                <span class="calda-gota pos-1" aria-hidden="true"></span>
+                <span class="calda-gota pos-2" aria-hidden="true"></span>
+                <span class="calda-gota pos-3" aria-hidden="true"></span>
+                <span class="calda-gota pos-4" aria-hidden="true"></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="conteudo-principal">
+
+        <aside class="cartao-responsavel" aria-label="Responsável por Login e Cadastro">
+            <div class="responsavel-info">
+                <span class="responsavel-avatar" role="img" aria-label="Davi Emanuel">👨‍🎓</span>
+                <div class="responsavel-detalhes">
+                    <h4>Responsável pelo Tópico: Formulários Semânticos, Acessibilidade & Acesso</h4>
+                    <p>Aluno: <strong>Davi Emanuel</strong> | <strong>5º Período - CESMAC</strong></p>
+                </div>
+            </div>
+            <div class="responsavel-tags">
+                <span class="tag-topico">Tópico: Autenticação Visual</span>
+                <span class="tag-status">Concluído 100%</span>
+            </div>
+        </aside>
+
+        <header class="secao-cabecalho">
+            <span class="secao-subtitulo">Área do Cliente</span>
+            <h1 class="secao-titulo">Acesse Sua Conta no Banana Food</h1>
+            <div class="secao-divisor" aria-hidden="true"></div>
+        </header>
+
+        <section class="auth-secao" aria-labelledby="auth-secao-titulo">
+            <h2 id="auth-secao-titulo" class="sr-only">Formulários de Autenticação e Cadastro</h2>
+
+            <article class="auth-card">
+                <header class="auth-drip-topo">
+                    <svg viewBox="0 0 500 35" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M0,0 C100,30 200,5 300,30 C400,10 450,30 500,15 L500,0 Z"></path>
+                    </svg>
+                    <span class="auth-icone-badge" role="img" aria-label="Segurança">🔐</span>
+                </header>
+
+                <div class="auth-corpo">
+
+                    <nav class="auth-tabs-nav" aria-label="Alternar entre Entrar e Cadastrar">
+                        <button type="button" class="auth-tab-btn ativo" id="tab-btn-login"
+                            onclick="alternarAbasAuth('login')">
+                            Entrar
+                        </button>
+                        <button type="button" class="auth-tab-btn" id="tab-btn-cadastro"
+                            onclick="alternarAbasAuth('cadastro')">
+                            Criar Conta
+                        </button>
+                    </nav>
+
+                    <form class="auth-form ativo" id="form-login" novalidate>
+                        <fieldset class="form-grupo">
+                            <label for="login-email" class="form-label">
+                                <span>📧</span> E-mail Acadêmico ou Pessoal:
+                            </label>
+                            <div class="input-icone-wrapper">
+                                <span class="icone-campo" aria-hidden="true">✉️</span>
+                                <input type="email" id="login-email" class="form-input" placeholder="davi@cesmac.edu.br"
+                                    required>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-grupo">
+                            <label for="login-senha" class="form-label">
+                                <span>🔑</span> Senha de Acesso:
+                            </label>
+                            <div class="input-icone-wrapper">
+                                <span class="icone-campo" aria-hidden="true">🔒</span>
+                                <input type="password" id="login-senha" class="form-input" placeholder="••••••••"
+                                    required>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-opcoes-extras">
+                            <label class="lembrar-label">
+                                <input type="checkbox" id="lembrar-login" checked>
+                                Lembrar neste navegador
+                            </label>
+                            <a href="#" class="link-esqueci-senha"
+                                onclick="mostrarToast('Link de recuperação simulado enviado ao seu e-mail!', 'alerta', '📧'); return false;">
+                                Esqueceu a senha?
+                            </a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+                            Entrar no Banana Food ➔
+                        </button>
+                    </form>
+
+                    <form class="auth-form" id="form-cadastro" novalidate>
+                        <fieldset class="form-grupo">
+                            <label for="cad-nome" class="form-label">
+                                <span>👤</span> Nome Completo:
+                            </label>
+                            <div class="input-icone-wrapper">
+                                <span class="icone-campo" aria-hidden="true">📛</span>
+                                <input type="text" id="cad-nome" class="form-input" placeholder="Ex: Davi Emanuel"
+                                    required>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-grupo">
+                            <label for="cad-email" class="form-label">
+                                <span>📧</span> E-mail para Cadastro:
+                            </label>
+                            <div class="input-icone-wrapper">
+                                <span class="icone-campo" aria-hidden="true">✉️</span>
+                                <input type="email" id="cad-email" class="form-input" placeholder="seuemail@exemplo.com"
+                                    required>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-grupo">
+                            <label for="cad-senha" class="form-label">
+                                <span>🔑</span> Criar Senha Segura:
+                            </label>
+                            <div class="input-icone-wrapper">
+                                <span class="icone-campo" aria-hidden="true">🔒</span>
+                                <input type="password" id="cad-senha" class="form-input"
+                                    placeholder="Mínimo 6 caracteres" required>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-grupo">
+                            <label for="cad-calda-favorita" class="form-label">
+                                <span>🍯</span> Calda Favorita (Preferência):
+                            </label>
+                            <div class="input-icone-wrapper">
+                                <span class="icone-campo" aria-hidden="true">✨</span>
+                                <select id="cad-calda-favorita" class="form-input" style="padding-left: 42px;">
+                                    <option value="toffee">Toffee Dourado Artesanal</option>
+                                    <option value="caramelo">Caramelo Quente Espelhado</option>
+                                    <option value="frutas">Frutas Vermelhas & Morango</option>
+                                    <option value="mel">Mel Silvestre & Baunilha</option>
+                                    <option value="chocolate">Chocolate Nobre com Brilho</option>
+                                </select>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-opcoes-extras">
+                            <label class="lembrar-label">
+                                <input type="checkbox" id="aceitar-termos" required checked>
+                                Aceito os termos do projeto acadêmico CESMAC
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary btn-lg" style="width: 100%;">
+                            Concluir Cadastro Simulado ➔
+                        </button>
+                    </form>
+
+                    <aside class="aviso-demonstracao-apenas">
+                        ℹ️ <strong>Demonstração Visual:</strong> Este formulário realiza validações e feedbacks 100%
+                        pelo navegador (client-side), sem gravação em banco de dados externo.
+                    </aside>
+
+                </div>
+            </article>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <svg class="footer-onda-superior" viewBox="0 0 1200 35" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,35 L1200,35 L1200,10 C1000,40 800,0 600,25 C400,0 200,40 0,10 Z"></path>
+        </svg>
+
+        <div class="footer-conteudo">
+            <div class="footer-grid">
+                <section class="footer-coluna">
+                    <h3>🍌 Banana Food</h3>
+                    <p>
+                        Módulo de autenticação e formulários acessíveis desenvolvido exclusivamente com CSS moderno,
+                        HTML5 e JavaScript.
+                    </p>
+                </section>
+
+                <nav class="footer-coluna" aria-label="Navegação Rodapé">
+                    <h3>🔗 Navegação</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">➔ Página Inicial</a></li>
+                        <li><a href="menu.html">➔ Cardápio Completo</a></li>
+                        <li><a href="carrinho.html">➔ Carrinho de Compras</a></li>
+                        <li><a href="login-cadastro.html">➔ Acessar Conta</a></li>
+                    </ul>
+                </nav>
+
+                <section class="footer-coluna">
+                    <h3>👨‍🎓 Responsável pelo Módulo</h3>
+                    <div class="footer-autores">
+                        <div class="autor-item">
+                            <span>Davi Emanuel</span>
+                            <span class="funcao">5º Período - CESMAC</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="footer-inferior">
+                <p>© 2026 Banana Food - Davi Emanuel (5º Período - CESMAC)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
