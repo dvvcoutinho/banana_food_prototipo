@@ -13,12 +13,7 @@
 
 <body>
 
-    <aside class="topo-academico" aria-label="Identificação Acadêmica">
-        <span>🎓 <strong>Projeto Acadêmico</strong> | CESMAC - 5º Período</span>
-        <aside>
-            <span>Responsável: Davi Emanuel</span>
-        </aside>
-    </aside>
+
 
     <header class="site-header">
         <div class="header-conteudo">
@@ -65,19 +60,7 @@
 
     <main class="conteudo-principal">
 
-        <aside class="cartao-responsavel" aria-label="Responsável por Login e Cadastro">
-            <div class="responsavel-info">
-                <span class="responsavel-avatar" role="img" aria-label="Davi Emanuel">👨‍🎓</span>
-                <div class="responsavel-detalhes">
-                    <h4>Responsável pelo Tópico: Formulários Semânticos, Acessibilidade & Acesso</h4>
-                    <p>Aluno: <strong>Davi Emanuel</strong> | <strong>5º Período - CESMAC</strong></p>
-                </div>
-            </div>
-            <div class="responsavel-tags">
-                <span class="tag-topico">Tópico: Autenticação</span>
-                <span class="tag-status">Concluído 100%</span>
-            </div>
-        </aside>
+
 
         <header class="secao-cabecalho">
             <span class="secao-subtitulo">Área do Cliente</span>
@@ -112,11 +95,11 @@
                     <form class="auth-form ativo" id="form-login" novalidate>
                         <fieldset class="form-grupo">
                             <label for="login-email" class="form-label">
-                                <span>📧</span> E-mail Acadêmico ou Pessoal:
+                                <span>📧</span> E-mail de Acesso:
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">✉️</span>
-                                <input type="email" id="login-email" class="form-input" placeholder="davi@cesmac.edu.br"
+                                <input type="email" id="login-email" class="form-input" placeholder="seuemail@exemplo.com"
                                     required>
                             </div>
                         </fieldset>
@@ -138,7 +121,7 @@
                                 Lembrar neste navegador
                             </label>
                             <a href="#" class="link-esqueci-senha"
-                                onclick="mostrarToast('Link de recuperação simulado enviado ao seu e-mail!', 'alerta', '📧'); return false;">
+                                onclick="mostrarToast('Link de recuperação enviado para o seu e-mail!', 'sucesso', '📧'); return false;">
                                 Esqueceu a senha?
                             </a>
                         </div>
@@ -155,7 +138,7 @@
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">📛</span>
-                                <input type="text" id="cad-nome" class="form-input" placeholder="Ex: Davi Emanuel"
+                                <input type="text" id="cad-nome" class="form-input" placeholder="Seu nome completo"
                                     required>
                             </div>
                         </fieldset>
@@ -201,19 +184,16 @@
                         <div class="form-opcoes-extras">
                             <label class="lembrar-label">
                                 <input type="checkbox" id="aceitar-termos" required checked>
-                                Aceito os termos do projeto acadêmico CESMAC
+                                Aceito os termos de uso e política de privacidade
                             </label>
                         </div>
 
                         <button type="submit" class="btn btn-secondary btn-lg" style="width: 100%;">
-                            Concluir Cadastro Simulado ➔
+                            Concluir Cadastro ➔
                         </button>
                     </form>
 
-                    <aside class="aviso-demonstracao-apenas">
-                        ℹ️ <strong>Demonstração:</strong> Este formulário realiza validações e feedbacks 100%
-                        pelo navegador (client-side), sem gravação em banco de dados externo.
-                    </aside>
+
 
                 </div>
             </article>
@@ -231,8 +211,7 @@
                 <section class="footer-coluna">
                     <h3>🍌 Banana Food</h3>
                     <p>
-                        Módulo de autenticação e formulários acessíveis desenvolvido exclusivamente com CSS moderno,
-                        HTML5 e JavaScript.
+                        Acesse sua conta para fazer pedidos com mais facilidade, salvar seus itens favoritos e receber ofertas exclusivas.
                     </p>
                 </section>
 
@@ -247,18 +226,13 @@
                 </nav>
 
                 <section class="footer-coluna">
-                    <h3>👨‍🎓 Responsável pelo Módulo</h3>
-                    <div class="footer-autores">
-                        <div class="autor-item">
-                            <span>Davi Emanuel</span>
-                            <span class="funcao">5º Período - CESMAC</span>
-                        </div>
-                    </div>
+                    <h3>📍 Atendimento & Horários</h3>
+                    <p>Segunda a Domingo: 12h às 23h<br>Entregas em toda a região</p>
                 </section>
             </div>
 
             <div class="footer-inferior">
-                <p>© 2026 Banana Food - Davi Emanuel (5º Período - CESMAC)</p>
+                <p>© 2026 Banana Food. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>

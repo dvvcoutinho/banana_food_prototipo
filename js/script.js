@@ -6,8 +6,7 @@ const PRODUTOS_CATALOGO = [
         preco: 16.50,
         emoji: "🍌",
         descricao: "Camadas crocantes de biscoito, banana fresca selecionada, doce de leite artesanal e calda toffee escorrendo.",
-        calda: "Toffee Dourado",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Toffee Dourado"
     },
     {
         id: 2,
@@ -16,8 +15,7 @@ const PRODUTOS_CATALOGO = [
         preco: 26.90,
         emoji: "🎂",
         descricao: "Massa fofinha com especiarias e cobertura vulcânica de caramelo fervente e bananas flambadas.",
-        calda: "Caramelo Quente",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Caramelo Quente"
     },
     {
         id: 3,
@@ -26,8 +24,7 @@ const PRODUTOS_CATALOGO = [
         preco: 19.50,
         emoji: "🥞",
         descricao: "Torre de panquecas fofas com fatias de banana e cascata de mel silvestre puro com brilho.",
-        calda: "Mel Nobre",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Mel Nobre"
     },
     {
         id: 4,
@@ -36,8 +33,7 @@ const PRODUTOS_CATALOGO = [
         preco: 24.90,
         emoji: "🍨",
         descricao: "Banana in natura com três bolas de sorvete, chantilly, cereja e caldas escorrendo pelas bordas.",
-        calda: "Duo Chocolate & Caramelo",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Duo Chocolate & Caramelo"
     },
     {
         id: 5,
@@ -46,8 +42,7 @@ const PRODUTOS_CATALOGO = [
         preco: 22.00,
         emoji: "🧇",
         descricao: "Waffle dourado e crocante coberto por bananas douradas na manteiga e calda de açúcar mascavo.",
-        calda: "Caramelo de Canela",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Caramelo de Canela"
     },
     {
         id: 6,
@@ -56,8 +51,7 @@ const PRODUTOS_CATALOGO = [
         preco: 14.00,
         emoji: "🍮",
         descricao: "Pudim aveludado sem furinhos regado por uma farta calda de açúcar caramelizado brilhante.",
-        calda: "Caramelo Espelhado",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Caramelo Espelhado"
     },
     {
         id: 7,
@@ -66,8 +60,7 @@ const PRODUTOS_CATALOGO = [
         preco: 15.00,
         emoji: "🥤",
         descricao: "Bebida ultra cremosa e refrescante servida em copo decorado com calda de frutas vermelhas.",
-        calda: "Frutas Vermelhas",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Frutas Vermelhas"
     },
     {
         id: 8,
@@ -76,8 +69,7 @@ const PRODUTOS_CATALOGO = [
         preco: 13.90,
         emoji: "☕",
         descricao: "Café expresso especial com leite vaporizado, aroma suave de banana e fios de calda toffee.",
-        calda: "Toffee Especial",
-        responsavel: "Davi Emanuel (5º Período CESMAC)"
+        calda: "Toffee Especial"
     }
 ];
 
@@ -91,7 +83,7 @@ function salvarCarrinho(carrinho) {
     atualizarContadorHeader();
 }
 
-function adicionarAoCarrinho(id, nome, preco, emoji, responsavel) {
+function adicionarAoCarrinho(id, nome, preco, emoji) {
     const carrinho = obterCarrinho();
     const itemExistente = carrinho.find(item => item.id === id);
 
@@ -103,7 +95,6 @@ function adicionarAoCarrinho(id, nome, preco, emoji, responsavel) {
             nome: nome,
             preco: Number(preco),
             emoji: emoji,
-            responsavel: responsavel || 'Davi Emanuel (5º Período CESMAC)',
             quantidade: 1
         });
     }
@@ -188,7 +179,6 @@ function renderizarPaginaCarrinho() {
         <div class="item-visual" aria-hidden="true">${item.emoji}</div>
         <div class="item-detalhes">
           <h3>${item.nome}</h3>
-          <p>Responsável pelo Item: <strong>${item.responsavel}</strong></p>
           <span class="item-preco-unitario">R$ ${item.preco.toFixed(2).replace('.', ',')} un.</span>
         </div>
         <div class="item-quantidade-controle" aria-label="Controle de Quantidade">
@@ -223,18 +213,18 @@ function aplicarCupom() {
 
     const codigo = inputCupom.value.trim().toUpperCase();
 
-    if (codigo === 'CESMAC10' || codigo === 'BANANAFOOD' || codigo === 'FACULDADE10') {
+    if (codigo === 'BANANAFOOD' || codigo === 'DOCE15' || codigo === 'BANANA10') {
         descontoAtivo = 0.15;
-        mostrarToast('Cupom Acadêmico CESMAC de 15% aplicado com sucesso!', 'sucesso', '🎓');
+        mostrarToast('Cupom Especial de 15% aplicado com sucesso!', 'sucesso', '🎟️');
         renderizarPaginaCarrinho();
     } else if (codigo === '') {
         mostrarToast('Por favor, digite um código de cupom.', 'alerta', '⚠️');
     } else {
-        mostrarToast('Cupom inválido. Experimente "CESMAC10" ou "BANANAFOOD"!', 'alerta', '❌');
+        mostrarToast('Cupom inválido. Experimente "BANANAFOOD" ou "DOCE15"!', 'alerta', '❌');
     }
 }
 
-function finalizarPedidoSimulado() {
+function finalizarPedido() {
     const carrinho = obterCarrinho();
     if (carrinho.length === 0) {
         mostrarToast('Seu carrinho está vazio!', 'alerta', '⚠️');
@@ -246,7 +236,7 @@ function finalizarPedidoSimulado() {
         modal.showModal();
         limparCarrinho();
     } else {
-        alert('🎉 Pedido Simulado com Sucesso! (Demonstração Acadêmica - Davi Emanuel)');
+        alert('🎉 Pedido Confirmado com Sucesso!');
         limparCarrinho();
     }
 }
@@ -311,16 +301,11 @@ function renderizarVitrineProdutos(filtroCategoria = 'todos', termoBusca = '') {
             <p>${prod.descricao}</p>
           </div>
 
-          <aside class="produto-meta">
-            <span>🧑‍💻 Responsável:</span>
-            <span class="aluno-autor">${prod.responsavel}</span>
-          </aside>
-
           <footer class="produto-rodape">
             <div class="preco-valor">
               <small>R$</small> ${prod.preco.toFixed(2).replace('.', ',')}
             </div>
-            <button type="button" class="btn btn-primary btn-sm" onclick="adicionarAoCarrinho(${prod.id}, '${prod.nome}', ${prod.preco}, '${prod.emoji}', '${prod.responsavel}')">
+            <button type="button" class="btn btn-primary btn-sm" onclick="adicionarAoCarrinho(${prod.id}, '${prod.nome}', ${prod.preco}, '${prod.emoji}')">
               Adicionar +
             </button>
           </footer>
@@ -353,16 +338,16 @@ function alternarAbasAuth(abaDesejada) {
     }
 }
 
-function processarLoginSimulado(event) {
+function processarLogin(event) {
     event.preventDefault();
     const email = document.getElementById('login-email').value;
     mostrarToast(`Bem-vindo(a) ao Banana Food! Login realizado para: ${email}`, 'sucesso', '🍌');
 }
 
-function processarCadastroSimulado(event) {
+function processarCadastro(event) {
     event.preventDefault();
     const nome = document.getElementById('cad-nome').value;
-    mostrarToast(`Conta criada para ${nome}! (Simulação Visual - Banana Food)`, 'sucesso', '🎉');
+    mostrarToast(`Conta criada para ${nome} com sucesso!`, 'sucesso', '🎉');
     setTimeout(() => {
         alternarAbasAuth('login');
     }, 1500);
@@ -438,11 +423,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const formLogin = document.getElementById('form-login');
     if (formLogin) {
-        formLogin.addEventListener('submit', processarLoginSimulado);
+        formLogin.addEventListener('submit', processarLogin);
     }
 
     const formCadastro = document.getElementById('form-cadastro');
     if (formCadastro) {
-        formCadastro.addEventListener('submit', processarCadastroSimulado);
+        formCadastro.addEventListener('submit', processarCadastro);
     }
 });
