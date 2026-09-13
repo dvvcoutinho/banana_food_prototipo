@@ -59,7 +59,6 @@
 
   <main class="conteudo-principal">
 
-    <!-- Mensagem de Sucesso (Flash Attribute) -->
     <div th:if="${mensagemSucesso}" class="toast sucesso" style="position: static; margin: 20px auto; max-width: 600px; display: flex; align-items: center; box-shadow: var(--shadow-md);">
       <span class="toast-icone">🎉</span>
       <span class="toast-msg" th:text="${mensagemSucesso}">Item cadastrado com sucesso!</span>
@@ -80,7 +79,6 @@
     </header>
 
     <section class="menu-controles" aria-label="Filtros do Cardápio">
-      <!-- Formulário de busca via Spring MVC -->
       <form th:action="@{/menu}" method="get" class="busca-container">
         <input type="hidden" name="categoria" th:value="${categoriaAtiva}" />
         <span class="busca-icone" aria-hidden="true">🔍</span>
@@ -89,7 +87,6 @@
           aria-label="Buscar produtos no cardápio">
       </form>
 
-      <!-- Botões de filtro de categoria como links Spring MVC -->
       <nav class="categorias-nav" aria-label="Categorias de Produtos">
         <a th:href="@{/menu(categoria='todos', busca=${termoBusca})}" class="btn-categoria"
            th:classappend="${categoriaAtiva == null or categoriaAtiva == 'todos'} ? 'ativo' : ''">
@@ -114,7 +111,6 @@
       </nav>
     </section>
 
-    <!-- Vitrine de Produtos Dinâmica com Thymeleaf -->
     <section class="vitrine-produtos" id="vitrine-produtos-grid" aria-label="Lista de Produtos">
 
       <article class="produto-card" th:each="prod : ${produtos}">
@@ -198,7 +194,7 @@
       </div>
 
       <div class="footer-inferior">
-        <p>© 2026 Banana Food. Todos os direitos reservados. Aplicação Spring Boot + Thymeleaf.</p>
+        <p>© 2026 Banana Food. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>

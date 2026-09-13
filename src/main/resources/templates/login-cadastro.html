@@ -59,7 +59,6 @@
 
     <main class="conteudo-principal">
 
-        <!-- Mensagem de Sucesso (Flash Attribute) -->
         <div th:if="${mensagemSucesso}" class="toast sucesso" style="position: static; margin: 20px auto; max-width: 500px; display: flex; align-items: center; box-shadow: var(--shadow-md);">
             <span class="toast-icone">🎉</span>
             <span class="toast-msg" th:text="${mensagemSucesso}">Cadastro realizado com sucesso!</span>
@@ -95,7 +94,6 @@
                         </button>
                     </nav>
 
-                    <!-- Formulário de Login -->
                     <form class="auth-form ativo" id="form-login" novalidate>
                         <fieldset class="form-grupo">
                             <label for="login-email" class="form-label">
@@ -135,7 +133,6 @@
                         </button>
                     </form>
 
-                    <!-- Formulário de Cadastro Integrado ao Spring Boot via POST -->
                     <form class="auth-form" id="form-cadastro" th:action="@{/cadastrar-usuario}" th:object="${usuario}" method="post">
                         <fieldset class="form-grupo">
                             <label for="cad-nome" class="form-label">
@@ -236,7 +233,7 @@
             </div>
 
             <div class="footer-inferior">
-                <p>© 2026 Banana Food. Todos os direitos reservados. Aplicação Spring Boot + Thymeleaf.</p>
+                <p>© 2026 Banana Food. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>

@@ -79,10 +79,8 @@
         </header>
 
         <div class="cadastro-corpo">
-          <!-- Formulário com Thymeleaf: th:object, th:action, method=POST -->
           <form th:action="@{/produtos}" th:object="${produto}" method="post" id="form-cadastrar-sobremesa">
 
-            <!-- Nome da Sobremesa -->
             <fieldset class="form-grupo">
               <label for="nome" class="form-label">
                 <span>🍌</span> Nome da Sobremesa:
@@ -95,7 +93,6 @@
             </fieldset>
 
             <div class="form-grid-duplo">
-              <!-- Categoria -->
               <fieldset class="form-grupo">
                 <label for="categoria" class="form-label">
                   <span>📂</span> Categoria:
@@ -111,7 +108,6 @@
                 </div>
               </fieldset>
 
-              <!-- Tipo de Calda Nobre -->
               <fieldset class="form-grupo">
                 <label for="calda" class="form-label">
                   <span>🍯</span> Tipo da Calda Especial:
@@ -125,7 +121,6 @@
             </div>
 
             <div class="form-grid-duplo">
-              <!-- Preço -->
               <fieldset class="form-grupo">
                 <label for="preco" class="form-label">
                   <span>💰</span> Preço Unitário (R$):
@@ -137,7 +132,6 @@
                 </div>
               </fieldset>
 
-              <!-- Ícone / Emoji -->
               <fieldset class="form-grupo">
                 <label for="emoji" class="form-label">
                   <span>🎨</span> Ícone Visual / Emoji:
@@ -160,7 +154,6 @@
               </fieldset>
             </div>
 
-            <!-- Descrição -->
             <fieldset class="form-grupo">
               <label for="descricao" class="form-label">
                 <span>📝</span> Descrição & Ingredientes Nobres:
@@ -169,13 +162,11 @@
                 placeholder="Descreva a composição, o ponto da calda e a experiência de sabor desta sobremesa..." required></textarea>
             </fieldset>
 
-            <!-- Checkbox Destaque -->
             <label class="checkbox-destaque">
               <input type="checkbox" th:field="*{destaque}" id="destaque">
               <span>Marcar como Destaque na Página Inicial (Home)</span>
             </label>
 
-            <!-- Ações -->
             <div class="form-acoes-cadastro">
               <button type="submit" class="btn btn-primary btn-lg" style="flex: 2;">
                 Salvar Sobremesa no Cardápio ➔
@@ -224,7 +215,7 @@
       </div>
 
       <div class="footer-inferior">
-        <p>© 2026 Banana Food. Todos os direitos reservados. Aplicação Spring Boot + Thymeleaf.</p>
+        <p>© 2026 Banana Food. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>

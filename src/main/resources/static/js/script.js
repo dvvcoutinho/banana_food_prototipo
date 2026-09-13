@@ -393,8 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const containerVitrine = document.getElementById('vitrine-produtos-grid');
     if (containerVitrine) {
-        // Se a página for aberta estaticamente sem Spring Boot, renderiza do catálogo JS.
-        // Se já tiver elementos renderizados pelo Thymeleaf no servidor, mantém os dados do Spring Boot!
         if (containerVitrine.children.length === 0) {
             renderizarVitrineProdutos('todos');
 
@@ -411,7 +409,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Filtro em tempo real no input de busca para os cards
         const inputBusca = document.getElementById('input-busca-produtos');
         if (inputBusca) {
             inputBusca.addEventListener('input', (e) => {
@@ -453,7 +450,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formLogin.addEventListener('submit', processarLogin);
     }
 
-    // Parâmetro de aba para login/cadastro
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('aba') === 'login') {
         alternarAbasAuth('login');
