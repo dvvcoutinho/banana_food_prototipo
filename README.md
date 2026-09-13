@@ -1,8 +1,8 @@
 # 🍌 Banana Food - Sobremesas & Caldas Nobres
 
-## 👥 Integrantes da Dupla
-- **Davi** (Matrícula: 2024200925)
-- **[Nome do Segundo Integrante]** (Matrícula: [Número de Matrícula])
+## 👥 Integrante responsável 
+- **Davi Emanuel** 
+
 
 ---
 
