@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,17 +7,15 @@
     <meta name="description"
         content="Central de Acesso - Banana Food: Entre ou crie sua conta para acompanhar seus pedidos doces.">
     <title>Acesso & Cadastro | Banana Food</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login-cadastro.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/login-cadastro.css}" href="/css/login-cadastro.css">
 </head>
 
 <body>
 
-
-
     <header class="site-header">
         <div class="header-conteudo">
-            <a href="index.html" class="site-logo" aria-label="Página Inicial">
+            <a th:href="@{/}" href="/" class="site-logo" aria-label="Página Inicial">
                 <span class="logo-icone" role="img" aria-label="Ícone">🍌</span>
                 <div class="logo-texto">
                     <strong class="logo-titulo">Banana Food</strong>
@@ -31,14 +29,15 @@
 
             <nav class="menu-principal" id="menu-principal-nav" aria-label="Navegação Principal">
                 <ul class="menu-lista">
-                    <li><a href="index.html">🏠 Início</a></li>
-                    <li><a href="menu.html">📜 Cardápio de Caldas</a></li>
+                    <li><a th:href="@{/}" href="/">🏠 Início</a></li>
+                    <li><a th:href="@{/menu}" href="/menu">📜 Cardápio de Caldas</a></li>
+                    <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➕ Nova Sobremesa</a></li>
                     <li>
-                        <a href="carrinho.html" class="botao-carrinho-header">
+                        <a th:href="@{/carrinho}" href="/carrinho" class="botao-carrinho-header">
                             🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
                         </a>
                     </li>
-                    <li><a href="login-cadastro.html" class="ativo">👤 Conta / Acesso</a></li>
+                    <li><a th:href="@{/login-cadastro}" href="/login-cadastro" class="ativo">👤 Conta / Acesso</a></li>
                 </ul>
             </nav>
         </div>
@@ -60,7 +59,11 @@
 
     <main class="conteudo-principal">
 
-
+        <!-- Mensagem de Sucesso (Flash Attribute) -->
+        <div th:if="${mensagemSucesso}" class="toast sucesso" style="position: static; margin: 20px auto; max-width: 500px; display: flex; align-items: center; box-shadow: var(--shadow-md);">
+            <span class="toast-icone">🎉</span>
+            <span class="toast-msg" th:text="${mensagemSucesso}">Cadastro realizado com sucesso!</span>
+        </div>
 
         <header class="secao-cabecalho">
             <span class="secao-subtitulo">Área do Cliente</span>
@@ -92,6 +95,7 @@
                         </button>
                     </nav>
 
+                    <!-- Formulário de Login -->
                     <form class="auth-form ativo" id="form-login" novalidate>
                         <fieldset class="form-grupo">
                             <label for="login-email" class="form-label">
@@ -131,14 +135,15 @@
                         </button>
                     </form>
 
-                    <form class="auth-form" id="form-cadastro" novalidate>
+                    <!-- Formulário de Cadastro Integrado ao Spring Boot via POST -->
+                    <form class="auth-form" id="form-cadastro" th:action="@{/cadastrar-usuario}" th:object="${usuario}" method="post">
                         <fieldset class="form-grupo">
                             <label for="cad-nome" class="form-label">
                                 <span>👤</span> Nome Completo:
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">📛</span>
-                                <input type="text" id="cad-nome" class="form-input" placeholder="Seu nome completo"
+                                <input type="text" id="cad-nome" th:field="*{nome}" class="form-input" placeholder="Seu nome completo"
                                     required>
                             </div>
                         </fieldset>
@@ -149,7 +154,7 @@
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">✉️</span>
-                                <input type="email" id="cad-email" class="form-input" placeholder="seuemail@exemplo.com"
+                                <input type="email" id="cad-email" th:field="*{email}" class="form-input" placeholder="seuemail@exemplo.com"
                                     required>
                             </div>
                         </fieldset>
@@ -160,7 +165,7 @@
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">🔒</span>
-                                <input type="password" id="cad-senha" class="form-input"
+                                <input type="password" id="cad-senha" th:field="*{senha}" class="form-input"
                                     placeholder="Mínimo 6 caracteres" required>
                             </div>
                         </fieldset>
@@ -171,7 +176,7 @@
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">✨</span>
-                                <select id="cad-calda-favorita" class="form-input" style="padding-left: 42px;">
+                                <select id="cad-calda-favorita" th:field="*{caldaFavorita}" class="form-input" style="padding-left: 42px;">
                                     <option value="toffee">Toffee Dourado Artesanal</option>
                                     <option value="caramelo">Caramelo Quente Espelhado</option>
                                     <option value="frutas">Frutas Vermelhas & Morango</option>
@@ -183,17 +188,15 @@
 
                         <div class="form-opcoes-extras">
                             <label class="lembrar-label">
-                                <input type="checkbox" id="aceitar-termos" required checked>
+                                <input type="checkbox" id="aceitar-termos" th:field="*{aceitouTermos}" checked>
                                 Aceito os termos de uso e política de privacidade
                             </label>
                         </div>
 
                         <button type="submit" class="btn btn-secondary btn-lg" style="width: 100%;">
-                            Concluir Cadastro ➔
+                            Concluir Cadastro no Sistema ➔
                         </button>
                     </form>
-
-
 
                 </div>
             </article>
@@ -218,10 +221,11 @@
                 <nav class="footer-coluna" aria-label="Navegação Rodapé">
                     <h3>🔗 Navegação</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">➔ Página Inicial</a></li>
-                        <li><a href="menu.html">➔ Cardápio Completo</a></li>
-                        <li><a href="carrinho.html">➔ Carrinho de Compras</a></li>
-                        <li><a href="login-cadastro.html">➔ Acessar Conta</a></li>
+                        <li><a th:href="@{/}" href="/">➔ Página Inicial</a></li>
+                        <li><a th:href="@{/menu}" href="/menu">➔ Cardápio Completo</a></li>
+                        <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➔ Nova Sobremesa</a></li>
+                        <li><a th:href="@{/carrinho}" href="/carrinho">➔ Carrinho de Compras</a></li>
+                        <li><a th:href="@{/login-cadastro}" href="/login-cadastro">➔ Acessar Conta</a></li>
                     </ul>
                 </nav>
 
@@ -232,12 +236,12 @@
             </div>
 
             <div class="footer-inferior">
-                <p>© 2026 Banana Food. Todos os direitos reservados.</p>
+                <p>© 2026 Banana Food. Todos os direitos reservados. Aplicação Spring Boot + Thymeleaf.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script th:src="@{/js/script.js}" src="/js/script.js"></script>
 </body>
 
 </html>

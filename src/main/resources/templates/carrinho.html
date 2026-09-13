@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -7,17 +7,15 @@
   <meta name="description"
     content="Carrinho de Pedidos - Banana Food: Revise seus itens, aplique cupons de desconto e finalize seu pedido.">
   <title>Meu Pedido | Banana Food</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/carrinho.css">
+  <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+  <link rel="stylesheet" th:href="@{/css/carrinho.css}" href="/css/carrinho.css">
 </head>
 
 <body>
 
-
-
   <header class="site-header">
     <div class="header-conteudo">
-      <a href="index.html" class="site-logo" aria-label="Página Inicial">
+      <a th:href="@{/}" href="/" class="site-logo" aria-label="Página Inicial">
         <span class="logo-icone" role="img" aria-label="Ícone">🍌</span>
         <div class="logo-texto">
           <strong class="logo-titulo">Banana Food</strong>
@@ -31,14 +29,15 @@
 
       <nav class="menu-principal" id="menu-principal-nav" aria-label="Navegação Principal">
         <ul class="menu-lista">
-          <li><a href="index.html">🏠 Início</a></li>
-          <li><a href="menu.html">📜 Cardápio de Caldas</a></li>
+          <li><a th:href="@{/}" href="/">🏠 Início</a></li>
+          <li><a th:href="@{/menu}" href="/menu">📜 Cardápio de Caldas</a></li>
+          <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➕ Nova Sobremesa</a></li>
           <li>
-            <a href="carrinho.html" class="ativo botao-carrinho-header">
+            <a th:href="@{/carrinho}" href="/carrinho" class="ativo botao-carrinho-header">
               🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
             </a>
           </li>
-          <li><a href="login-cadastro.html">👤 Conta / Acesso</a></li>
+          <li><a th:href="@{/login-cadastro}" href="/login-cadastro">👤 Conta / Acesso</a></li>
         </ul>
       </nav>
     </div>
@@ -60,8 +59,6 @@
 
   <main class="conteudo-principal">
 
-
-
     <header class="secao-cabecalho">
       <span class="secao-subtitulo">Seu Pedido Doce</span>
       <h1 class="secao-titulo">Carrinho de Compras</h1>
@@ -77,7 +74,7 @@
           <span class="carrinho-vazio-icone" role="img" aria-label="Carrinho Vazio">🍌</span>
           <h3>Seu carrinho do Banana Food está vazio!</h3>
           <p>Parece que você ainda não adicionou nenhuma sobremesa deliciosa ao seu pedido.</p>
-          <a href="menu.html" class="btn btn-primary btn-lg">Explorar Nosso Cardápio ➔</a>
+          <a th:href="@{/menu}" href="/menu" class="btn btn-primary btn-lg">Explorar Nosso Cardápio ➔</a>
         </article>
 
         <section class="cupom-box" aria-label="Cupom de Desconto">
@@ -138,7 +135,7 @@
         <p><strong>Parabéns! Sua sobremesa especial do Banana Food já começou a ser preparada.</strong></p>
 
         <div class="modal-detalhes-compra">
-          <p><strong>Status:</strong> Pedido Confirmado</p>
+          <p><strong>Status:</strong> Pedido Confirmado (Simulado)</p>
           <p><strong>Previsão de Entrega:</strong> 20 a 30 minutos</p>
           <p><strong>Entrega:</strong> No seu endereço cadastrado</p>
         </div>
@@ -168,10 +165,11 @@
         <nav class="footer-coluna" aria-label="Navegação Rodapé">
           <h3>🔗 Navegação</h3>
           <ul class="footer-links">
-            <li><a href="index.html">➔ Página Inicial</a></li>
-            <li><a href="menu.html">➔ Cardápio Completo</a></li>
-            <li><a href="carrinho.html">➔ Carrinho de Compras</a></li>
-            <li><a href="login-cadastro.html">➔ Acessar Conta</a></li>
+            <li><a th:href="@{/}" href="/">➔ Página Inicial</a></li>
+            <li><a th:href="@{/menu}" href="/menu">➔ Cardápio Completo</a></li>
+            <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➔ Nova Sobremesa</a></li>
+            <li><a th:href="@{/carrinho}" href="/carrinho">➔ Carrinho de Compras</a></li>
+            <li><a th:href="@{/login-cadastro}" href="/login-cadastro">➔ Acessar Conta</a></li>
           </ul>
         </nav>
 
@@ -182,12 +180,12 @@
       </div>
 
       <div class="footer-inferior">
-        <p>© 2026 Banana Food. Todos os direitos reservados.</p>
+        <p>© 2026 Banana Food. Todos os direitos reservados. Aplicação Spring Boot + Thymeleaf.</p>
       </div>
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script th:src="@{/js/script.js}" src="/js/script.js"></script>
 </body>
 
 </html>

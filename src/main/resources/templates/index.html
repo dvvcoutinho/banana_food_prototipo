@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,17 +7,15 @@
     <meta name="description"
         content="Banana Food: Sobremesas artesanais sofisticadas com caldas quentes e ingredientes nobres.">
     <title>Banana Food | Sobremesas & Caldas Nobres</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="/css/index.css">
 </head>
 
 <body>
 
-
-
     <header class="site-header">
         <div class="header-conteudo">
-            <a href="index.html" class="site-logo" aria-label="Página Inicial do Banana Food">
+            <a th:href="@{/}" href="/" class="site-logo" aria-label="Página Inicial do Banana Food">
                 <span class="logo-icone" role="img" aria-label="Banana Food">🍌</span>
                 <div class="logo-texto">
                     <strong class="logo-titulo">Banana Food</strong>
@@ -31,14 +29,15 @@
 
             <nav class="menu-principal" id="menu-principal-nav" aria-label="Menu Principal">
                 <ul class="menu-lista">
-                    <li><a href="index.html" class="ativo">🏠 Início</a></li>
-                    <li><a href="menu.html">📜 Cardápio de Caldas</a></li>
+                    <li><a th:href="@{/}" href="/" class="ativo">🏠 Início</a></li>
+                    <li><a th:href="@{/menu}" href="/menu">📜 Cardápio de Caldas</a></li>
+                    <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➕ Nova Sobremesa</a></li>
                     <li>
-                        <a href="carrinho.html" class="botao-carrinho-header">
+                        <a th:href="@{/carrinho}" href="/carrinho" class="botao-carrinho-header">
                             🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
                         </a>
                     </li>
-                    <li><a href="login-cadastro.html">👤 Conta / Acesso</a></li>
+                    <li><a th:href="@{/login-cadastro}" href="/login-cadastro">👤 Conta / Acesso</a></li>
                 </ul>
             </nav>
         </div>
@@ -60,8 +59,6 @@
 
     <main class="conteudo-principal">
 
-
-
         <section class="hero-banner" aria-labelledby="titulo-hero">
             <div class="hero-conteudo">
                 <span class="hero-tag">✨ Sabor Artesanal & Caldas Nobres</span>
@@ -73,8 +70,8 @@
                     Desenvolvido para encantar o paladar e os olhos.
                 </p>
                 <div class="hero-acoes">
-                    <a href="menu.html" class="btn btn-primary btn-lg">Explorar Cardápio ➔</a>
-                    <a href="login-cadastro.html" class="btn btn-secondary btn-lg">Criar Conta</a>
+                    <a th:href="@{/menu}" href="/menu" class="btn btn-primary btn-lg">Explorar Cardápio ➔</a>
+                    <a th:href="@{/produtos/novo}" href="/produtos/novo" class="btn btn-secondary btn-lg">Cadastrar Sobremesa ➕</a>
                 </div>
             </div>
 
@@ -86,8 +83,6 @@
             </figure>
         </section>
 
-
-
         <section class="secao-destaques" aria-labelledby="titulo-destaques">
             <header class="secao-cabecalho">
                 <span class="secao-subtitulo">Nossas Especialidades</span>
@@ -96,66 +91,29 @@
             </header>
 
             <div class="grid-destaques">
-                <article class="card-produto-destaque">
+                <article class="card-produto-destaque" th:each="destaque : ${destaques}">
                     <header class="card-topo-calda">
                         <svg viewBox="0 0 500 40" preserveAspectRatio="none">
                             <path d="M0,0 C120,40 180,5 260,35 C380,55 420,10 500,30 L500,0 Z"></path>
                         </svg>
                     </header>
                     <figure class="card-imagem-area">
-                        <span role="img" aria-label="Banoffee Especial">🍌</span>
+                        <span role="img" th:text="${destaque.emoji}" aria-label="Sobremesa em Destaque">🍌</span>
                     </figure>
                     <div class="card-corpo">
                         <div class="card-info">
-                            <h3>Banoffee Suprema com Toffee</h3>
-                            <p>Camadas de banana fresca com calda toffee dourada fervida no ponto de brilho espelhado.
-                            </p>
+                            <h3 th:text="${destaque.nome}">Banoffee Suprema com Toffee</h3>
+                            <p th:text="${destaque.descricao}">Camadas de banana fresca com calda toffee dourada fervida no ponto de brilho espelhado.</p>
                         </div>
                         <footer class="card-rodape">
-                            <span class="preco-tag">R$ 16,50</span>
-                            <a href="menu.html" class="btn btn-secondary btn-sm">Ver Detalhes</a>
-                        </footer>
-                    </div>
-                </article>
-
-                <article class="card-produto-destaque">
-                    <header class="card-topo-calda">
-                        <svg viewBox="0 0 500 40" preserveAspectRatio="none">
-                            <path d="M0,0 C100,30 190,50 300,15 C390,45 440,10 500,35 L500,0 Z"></path>
-                        </svg>
-                    </header>
-                    <figure class="card-imagem-area">
-                        <span role="img" aria-label="Bolo de Banana">🎂</span>
-                    </figure>
-                    <div class="card-corpo">
-                        <div class="card-info">
-                            <h3>Bolo Vulcão de Banana Caramelizada</h3>
-                            <p>Massa fofinha com centro quente e erupção de calda cremosa e bananas flambadas.</p>
-                        </div>
-                        <footer class="card-rodape">
-                            <span class="preco-tag">R$ 26,90</span>
-                            <a href="menu.html" class="btn btn-secondary btn-sm">Ver Detalhes</a>
-                        </footer>
-                    </div>
-                </article>
-
-                <article class="card-produto-destaque">
-                    <header class="card-topo-calda">
-                        <svg viewBox="0 0 500 40" preserveAspectRatio="none">
-                            <path d="M0,0 C140,50 200,10 320,40 C400,20 450,50 500,15 L500,0 Z"></path>
-                        </svg>
-                    </header>
-                    <figure class="card-imagem-area">
-                        <span role="img" aria-label="Banana Split">🍨</span>
-                    </figure>
-                    <div class="card-corpo">
-                        <div class="card-info">
-                            <h3>Banana Split com Dupla Calda</h3>
-                            <p>Sorvetes cremosos com banana fatiada e cascata de chocolate nobre e caramelo salgado.</p>
-                        </div>
-                        <footer class="card-rodape">
-                            <span class="preco-tag">R$ 24,90</span>
-                            <a href="menu.html" class="btn btn-secondary btn-sm">Ver Detalhes</a>
+                            <span class="preco-tag" th:text="'R$ ' + ${destaque.precoFormatado}">R$ 16,50</span>
+                            <div style="display: flex; gap: 8px;">
+                                <a th:href="@{/produtos/{id}(id=${destaque.id})}" href="/produtos/1" class="btn btn-secondary btn-sm">Ver Detalhes</a>
+                                <button type="button" class="btn btn-primary btn-sm"
+                                    th:attr="onclick=|adicionarAoCarrinho(${destaque.id}, '${destaque.nome}', ${destaque.preco}, '${destaque.emoji}')|">
+                                    + Pedido
+                                </button>
+                            </div>
                         </footer>
                     </div>
                 </article>
@@ -209,10 +167,11 @@
                 <nav class="footer-coluna" aria-label="Links do Rodapé">
                     <h3>🔗 Navegação Rápida</h3>
                     <ul class="footer-links">
-                        <li><a href="index.html">➔ Página Inicial</a></li>
-                        <li><a href="menu.html">➔ Cardápio Completo</a></li>
-                        <li><a href="carrinho.html">➔ Ver Pedido & Carrinho</a></li>
-                        <li><a href="login-cadastro.html">➔ Central de Usuário</a></li>
+                        <li><a th:href="@{/}" href="/">➔ Página Inicial</a></li>
+                        <li><a th:href="@{/menu}" href="/menu">➔ Cardápio Completo</a></li>
+                        <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➔ Nova Sobremesa</a></li>
+                        <li><a th:href="@{/carrinho}" href="/carrinho">➔ Ver Pedido & Carrinho</a></li>
+                        <li><a th:href="@{/login-cadastro}" href="/login-cadastro">➔ Central de Usuário</a></li>
                     </ul>
                 </nav>
 
@@ -223,12 +182,12 @@
             </div>
 
             <div class="footer-inferior">
-                <p>© 2026 Banana Food. Todos os direitos reservados.</p>
+                <p>© 2026 Banana Food. Todos os direitos reservados. Aplicação Spring Boot + Thymeleaf.</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script th:src="@{/js/script.js}" src="/js/script.js"></script>
 </body>
 
 </html>

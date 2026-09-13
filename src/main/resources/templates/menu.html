@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Cardápio Oficial - Banana Food: Escolha suas sobremesas favoritas com caldas nobres e artesanais.">
+  <title>Cardápio de Caldas | Banana Food</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+  <link rel="stylesheet" th:href="@{/css/menu.css}" href="/css/menu.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-conteudo">
+      <a th:href="@{/}" href="/" class="site-logo" aria-label="Página Inicial">
+        <span class="logo-icone" role="img" aria-label="Ícone">🍌</span>
+        <div class="logo-texto">
+          <strong class="logo-titulo">Banana Food</strong>
+          <span class="logo-subtitulo">Doçura & Caldas Nobres</span>
+        </div>
+      </a>
+
+      <button type="button" class="botao-menu-mobile" id="botao-menu-mobile" aria-label="Abrir Menu">
+        ☰
+      </button>
+
+      <nav class="menu-principal" id="menu-principal-nav" aria-label="Navegação Principal">
+        <ul class="menu-lista">
+          <li><a th:href="@{/}" href="/">🏠 Início</a></li>
+          <li><a th:href="@{/menu}" href="/menu" class="ativo">📜 Cardápio de Caldas</a></li>
+          <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➕ Nova Sobremesa</a></li>
+          <li>
+            <a th:href="@{/carrinho}" href="/carrinho" class="botao-carrinho-header">
+              🛒 Pedido <span class="contador-carrinho" aria-label="Itens no carrinho">0</span>
+            </a>
+          </li>
+          <li><a th:href="@{/login-cadastro}" href="/login-cadastro">👤 Conta / Acesso</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="calda-topo">
+      <svg class="calda-onda-svg" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true">
+        <path
+          d="M0,0 L1200,0 L1200,15 C1080,45 960,5 840,40 C720,10 600,48 480,18 C360,42 240,8 120,38 C60,15 0,35 0,15 Z">
+        </path>
+      </svg>
+      <div class="calda-gotas-container">
+        <span class="calda-gota pos-1" aria-hidden="true"></span>
+        <span class="calda-gota pos-2" aria-hidden="true"></span>
+        <span class="calda-gota pos-3" aria-hidden="true"></span>
+        <span class="calda-gota pos-4" aria-hidden="true"></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="conteudo-principal">
+
+    <!-- Mensagem de Sucesso (Flash Attribute) -->
+    <div th:if="${mensagemSucesso}" class="toast sucesso" style="position: static; margin: 20px auto; max-width: 600px; display: flex; align-items: center; box-shadow: var(--shadow-md);">
+      <span class="toast-icone">🎉</span>
+      <span class="toast-msg" th:text="${mensagemSucesso}">Item cadastrado com sucesso!</span>
+    </div>
+
+    <header class="secao-cabecalho">
+      <span class="secao-subtitulo">Seleção Exclusiva</span>
+      <h1 class="secao-titulo">Cardápio de Sobremesas & Caldas</h1>
+      <div class="secao-divisor" aria-hidden="true"></div>
+      <p style="text-align: center; margin-top: 10px; color: var(--color-text-muted);">
+        Total de sobremesas disponíveis: <strong th:text="${totalProdutos}">8</strong> itens artesanais
+      </p>
+      <div style="text-align: center; margin-top: 15px;">
+        <a th:href="@{/produtos/novo}" href="/produtos/novo" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 8px;">
+          <span>➕</span> Cadastrar Nova Sobremesa no Sistema
+        </a>
+      </div>
+    </header>
+
+    <section class="menu-controles" aria-label="Filtros do Cardápio">
+      <!-- Formulário de busca via Spring MVC -->
+      <form th:action="@{/menu}" method="get" class="busca-container">
+        <input type="hidden" name="categoria" th:value="${categoriaAtiva}" />
+        <span class="busca-icone" aria-hidden="true">🔍</span>
+        <input type="search" name="busca" th:value="${termoBusca}" class="busca-input"
+          placeholder="Pesquise por sobremesa, banana, calda toffee, mel ou caramelo..."
+          aria-label="Buscar produtos no cardápio">
+      </form>
+
+      <!-- Botões de filtro de categoria como links Spring MVC -->
+      <nav class="categorias-nav" aria-label="Categorias de Produtos">
+        <a th:href="@{/menu(categoria='todos', busca=${termoBusca})}" class="btn-categoria"
+           th:classappend="${categoriaAtiva == null or categoriaAtiva == 'todos'} ? 'ativo' : ''">
+          ✨ Todos os Itens
+        </a>
+        <a th:href="@{/menu(categoria='doces', busca=${termoBusca})}" class="btn-categoria"
+           th:classappend="${categoriaAtiva == 'doces'} ? 'ativo' : ''">
+          🍮 Caldas & Doces
+        </a>
+        <a th:href="@{/menu(categoria='bolos', busca=${termoBusca})}" class="btn-categoria"
+           th:classappend="${categoriaAtiva == 'bolos'} ? 'ativo' : ''">
+          🎂 Bolos & Tortas
+        </a>
+        <a th:href="@{/menu(categoria='sobremesas', busca=${termoBusca})}" class="btn-categoria"
+           th:classappend="${categoriaAtiva == 'sobremesas'} ? 'ativo' : ''">
+          🥞 Sobremesas Especiais
+        </a>
+        <a th:href="@{/menu(categoria='bebidas', busca=${termoBusca})}" class="btn-categoria"
+           th:classappend="${categoriaAtiva == 'bebidas'} ? 'ativo' : ''">
+          ☕ Bebidas com Calda
+        </a>
+      </nav>
+    </section>
+
+    <!-- Vitrine de Produtos Dinâmica com Thymeleaf -->
+    <section class="vitrine-produtos" id="vitrine-produtos-grid" aria-label="Lista de Produtos">
+
+      <article class="produto-card" th:each="prod : ${produtos}">
+        <header class="produto-drip-header">
+          <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+            <path d="M0,0 C100,35 150,5 250,30 C350,50 420,10 500,25 L500,0 Z"></path>
+          </svg>
+          <span class="badge-calda-tipo" th:text="'Calda: ' + ${prod.calda}">Calda: Toffee Dourado</span>
+        </header>
+
+        <figure class="produto-figura">
+          <span class="produto-emoji" role="img" th:text="${prod.emoji}">🍌</span>
+          <figcaption class="sr-only" th:text="${prod.nome}">Nome da Sobremesa</figcaption>
+        </figure>
+
+        <div class="produto-info">
+          <div class="produto-titulos">
+            <h3 th:text="${prod.nome}">Nome do Produto</h3>
+            <p th:text="${prod.descricao}">Descrição do produto e ingredientes nobres.</p>
+          </div>
+
+          <footer class="produto-rodape">
+            <div class="preco-valor">
+              <small>R$</small> <span th:text="${prod.precoFormatado}">16,50</span>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <a th:href="@{/produtos/{id}(id=${prod.id})}" class="btn btn-secondary btn-sm" title="Ver detalhes completos">
+                🔍 Ver
+              </a>
+              <button type="button" class="btn btn-primary btn-sm"
+                th:attr="onclick=|adicionarAoCarrinho(${prod.id}, '${prod.nome}', ${prod.preco}, '${prod.emoji}')|">
+                Adicionar +
+              </button>
+            </div>
+          </footer>
+        </div>
+      </article>
+
+      <div class="menu-vazio" th:if="${#lists.isEmpty(produtos)}">
+        <span>🔍</span>
+        <h3>Nenhum item encontrado</h3>
+        <p>Tente buscar por outro termo ou selecione a categoria "Todos os Itens".</p>
+        <a th:href="@{/menu}" class="btn btn-primary btn-sm" style="margin-top: 15px; display: inline-block;">
+          Ver Cardápio Completo
+        </a>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <svg class="footer-onda-superior" viewBox="0 0 1200 35" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,35 L1200,35 L1200,10 C1000,40 800,0 600,25 C400,0 200,40 0,10 Z"></path>
+    </svg>
+
+    <div class="footer-conteudo">
+      <div class="footer-grid">
+        <section class="footer-coluna">
+          <h3>🍌 Banana Food</h3>
+          <p>
+            Explore nosso cardápio completo de sobremesas exclusivas com caldas artesanais preparadas diariamente.
+          </p>
+        </section>
+
+        <nav class="footer-coluna" aria-label="Navegação Rodapé">
+          <h3>🔗 Navegação</h3>
+          <ul class="footer-links">
+            <li><a th:href="@{/}" href="/">➔ Página Inicial</a></li>
+            <li><a th:href="@{/menu}" href="/menu">➔ Cardápio Completo</a></li>
+            <li><a th:href="@{/produtos/novo}" href="/produtos/novo">➔ Nova Sobremesa</a></li>
+            <li><a th:href="@{/carrinho}" href="/carrinho">➔ Carrinho de Compras</a></li>
+            <li><a th:href="@{/login-cadastro}" href="/login-cadastro">➔ Acessar Conta</a></li>
+          </ul>
+        </nav>
+
+        <section class="footer-coluna">
+          <h3>📍 Atendimento & Horários</h3>
+          <p>Segunda a Domingo: 12h às 23h<br>Entregas em toda a região</p>
+        </section>
+      </div>
+
+      <div class="footer-inferior">
+        <p>© 2026 Banana Food. Todos os direitos reservados. Aplicação Spring Boot + Thymeleaf.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script th:src="@{/js/script.js}" src="/js/script.js"></script>
+</body>
+
+</html>

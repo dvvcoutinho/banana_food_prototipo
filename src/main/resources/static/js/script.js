@@ -245,7 +245,7 @@ function fecharModalPedido() {
     const modal = document.getElementById('modal-pedido-confirmado');
     if (modal) {
         modal.close();
-        window.location.href = 'menu.html';
+        window.location.href = '/menu';
     }
 }
 
@@ -393,26 +393,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const containerVitrine = document.getElementById('vitrine-produtos-grid');
     if (containerVitrine) {
-        renderizarVitrineProdutos('todos');
+        // Se a página for aberta estaticamente sem Spring Boot, renderiza do catálogo JS.
+        // Se já tiver elementos renderizados pelo Thymeleaf no servidor, mantém os dados do Spring Boot!
+        if (containerVitrine.children.length === 0) {
+            renderizarVitrineProdutos('todos');
 
-        const botoesCategoria = document.querySelectorAll('.btn-categoria');
-        botoesCategoria.forEach(btn => {
-            btn.addEventListener('click', () => {
-                botoesCategoria.forEach(b => b.classList.remove('ativo'));
-                btn.classList.add('ativo');
-                const cat = btn.getAttribute('data-categoria');
-                const inputBusca = document.getElementById('input-busca-produtos');
-                const termo = inputBusca ? inputBusca.value : '';
-                renderizarVitrineProdutos(cat, termo);
+            const botoesCategoria = document.querySelectorAll('.btn-categoria');
+            botoesCategoria.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    botoesCategoria.forEach(b => b.classList.remove('ativo'));
+                    btn.classList.add('ativo');
+                    const cat = btn.getAttribute('data-categoria');
+                    const inputBusca = document.getElementById('input-busca-produtos');
+                    const termo = inputBusca ? inputBusca.value : '';
+                    renderizarVitrineProdutos(cat, termo);
+                });
             });
-        });
+        }
 
+        // Filtro em tempo real no input de busca para os cards
         const inputBusca = document.getElementById('input-busca-produtos');
         if (inputBusca) {
             inputBusca.addEventListener('input', (e) => {
-                const catAtiva = document.querySelector('.btn-categoria.ativo');
-                const cat = catAtiva ? catAtiva.getAttribute('data-categoria') : 'todos';
-                renderizarVitrineProdutos(cat, e.target.value);
+                const termo = e.target.value.toLowerCase().trim();
+                const cards = containerVitrine.querySelectorAll('.produto-card');
+                let visiveis = 0;
+                cards.forEach(card => {
+                    const texto = card.textContent.toLowerCase();
+                    if (texto.includes(termo)) {
+                        card.style.display = 'flex';
+                        visiveis++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                let avisoVazio = containerVitrine.querySelector('.menu-vazio-dinamico');
+                if (visiveis === 0) {
+                    if (!avisoVazio) {
+                        avisoVazio = document.createElement('div');
+                        avisoVazio.className = 'menu-vazio menu-vazio-dinamico';
+                        avisoVazio.innerHTML = '<span>🔍</span><h3>Nenhum item encontrado</h3><p>Tente buscar por outro termo.</p>';
+                        containerVitrine.appendChild(avisoVazio);
+                    }
+                    avisoVazio.style.display = 'block';
+                } else if (avisoVazio) {
+                    avisoVazio.style.display = 'none';
+                }
             });
         }
     }
@@ -426,8 +453,11 @@ document.addEventListener('DOMContentLoaded', () => {
         formLogin.addEventListener('submit', processarLogin);
     }
 
-    const formCadastro = document.getElementById('form-cadastro');
-    if (formCadastro) {
-        formCadastro.addEventListener('submit', processarCadastro);
+    // Parâmetro de aba para login/cadastro
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('aba') === 'login') {
+        alternarAbasAuth('login');
+    } else if (urlParams.get('aba') === 'cadastro') {
+        alternarAbasAuth('cadastro');
     }
 });
