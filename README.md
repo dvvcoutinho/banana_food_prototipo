@@ -1,4 +1,4 @@
-# 🍌 Banana Food - Sobremesas & Caldas Nobres
+# 🍌 Banana Food - Protótipo 
 
 ## 👥 Integrante responsável 
 - **Davi Emanuel** 
@@ -7,9 +7,7 @@
 ---
 
 ## 📝 Descrição do Projeto
-O **Banana Food** é um sistema web desenvolvido originalmente como protótipo em HTML, CSS e JavaScript e agora evoluído para uma aplicação web robusta utilizando **Java**, **Spring Boot** e o motor de templates **Thymeleaf**.
-
-O sistema representa uma confeitaria artesanal especializada em sobremesas nobres à base de banana e caldas gourmet fervidas no ponto de calda (toffee dourado, caramelo salgado, mel silvestre, calda de frutas vermelhas e chocolate nobre).
+O **Banana Food** é um sistema web desenvolvido originalmente como protótipo em HTML, CSS e JavaScript. implementando **Java**, **Spring Boot** e o motor de templates **Thymeleaf**.
 
 Nesta versão com Spring Boot:
 - As páginas HTML estáticas foram transformadas em templates dinâmicos processados pelo **Thymeleaf**.
@@ -21,7 +19,7 @@ Nesta versão com Spring Boot:
 
 ## 🚀 Tecnologias Utilizadas
 - **Java 26 / OpenJDK (compatível com Java 17+)**
-- **Spring Boot 4.x / 3.x**
+- **Spring Boot 4 / 3**
   - `spring-boot-starter-webmvc` (Spring Web MVC para roteamento e Controllers)
   - `spring-boot-starter-thymeleaf` (Template Engine para renderização dinâmica)
   - `spring-boot-devtools` (Hot reload e produtividade de desenvolvimento)
