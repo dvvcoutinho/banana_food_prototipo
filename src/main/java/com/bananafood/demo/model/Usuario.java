@@ -1,11 +1,44 @@
 package com.bananafood.demo.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "O nome é obrigatório")
+    @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @NotBlank(message = "O e-mail é obrigatório")
+    @Email(message = "E-mail inválido")
+    @Size(max = 100)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
+
+    @NotBlank(message = "A senha é obrigatória")
+    @Size(min = 6, max = 255, message = "A senha deve ter no mínimo 6 caracteres")
+    @Column(nullable = false, length = 255)
     private String senha;
+
+    @Transient
     private String caldaFavorita;
-    private boolean aceitouTermos;
+
+    @Transient
+    private boolean aceitouTermos = true;
+
+    @Column(name = "data_cadastro", insertable = false, updatable = false)
+    private LocalDateTime dataCadastro;
 
     public Usuario() {
     }
@@ -16,6 +49,14 @@ public class Usuario {
         this.senha = senha;
         this.caldaFavorita = caldaFavorita;
         this.aceitouTermos = true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -57,4 +98,13 @@ public class Usuario {
     public void setAceitouTermos(boolean aceitouTermos) {
         this.aceitouTermos = aceitouTermos;
     }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 }
+

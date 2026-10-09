@@ -1,31 +1,48 @@
 package com.bananafood.demo.service;
 
 import com.bananafood.demo.model.Usuario;
+import com.bananafood.demo.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
 
-    private final List<Usuario> usuarios = new CopyOnWriteArrayList<>();
+    private final UsuarioRepository usuarioRepository;
 
-    public UsuarioService() {
-        usuarios.add(new Usuario("Davi Cliente", "davi@exemplo.com", "123456", "toffee"));
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+        carregarDadosIniciais();
+    }
+
+    private void carregarDadosIniciais() {
+        if (usuarioRepository.count() == 0) {
+            salvar(new Usuario("Davi Cliente", "davi@exemplo.com", "123456", "toffee"));
+        }
     }
 
     public List<Usuario> listarTodos() {
-        return usuarios;
+        return usuarioRepository.findAll();
     }
 
-    public void salvar(Usuario usuario) {
-        usuarios.add(usuario);
+    public Optional<Usuario> buscarPorEmail(String email) {
+        if (email == null) return Optional.empty();
+        return usuarioRepository.findByEmail(email);
+    }
+
+    @Transactional
+    public Usuario salvar(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 
     public boolean autenticar(String email, String senha) {
         if (email == null || senha == null) return false;
-        return usuarios.stream()
-                .anyMatch(u -> email.equalsIgnoreCase(u.getEmail()) && senha.equals(u.getSenha()));
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+        return usuarioOpt.isPresent() && senha.equals(usuarioOpt.get().getSenha());
     }
 }
+
+

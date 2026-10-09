@@ -62,9 +62,10 @@
 
     <header class="secao-cabecalho">
       <span class="secao-subtitulo">Cozinha Artesanal & Backend</span>
-      <h1 class="secao-titulo">Cadastrar Nova Sobremesa</h1>
+      <h1 class="secao-titulo" th:text="${isEdicao != null and isEdicao} ? 'Editar Sobremesa' : 'Cadastrar Nova Sobremesa'">Cadastrar Nova Sobremesa</h1>
       <div class="secao-divisor" aria-hidden="true"></div>
-      <p style="text-align: center; color: var(--color-text-muted); max-width: 600px; margin: 10px auto 0 auto;">
+      <p style="text-align: center; color: var(--color-text-muted); max-width: 600px; margin: 10px auto 0 auto;"
+         th:text="${isEdicao != null and isEdicao} ? 'Atualize as informações e valores da sobremesa selecionada no cardápio.' : 'Preencha o formulário abaixo para adicionar uma nova sobremesa com calda especial ao cardápio do Banana Food.'">
         Preencha o formulário abaixo para adicionar uma nova sobremesa com calda especial ao cardápio do Banana Food.
       </p>
     </header>
@@ -75,100 +76,124 @@
           <svg viewBox="0 0 500 35" preserveAspectRatio="none" aria-hidden="true">
             <path d="M0,0 C100,30 200,5 300,30 C400,10 450,30 500,15 L500,0 Z"></path>
           </svg>
-          <span style="color: #fff; font-weight: 700; font-size: 0.85rem;">🍌 Novo Item Artesanal</span>
+          <span style="color: #fff; font-weight: 700; font-size: 0.85rem;" th:text="${isEdicao != null and isEdicao} ? '🍌 Editar Item Artesanal' : '🍌 Novo Item Artesanal'">🍌 Novo Item Artesanal</span>
         </header>
 
         <div class="cadastro-corpo">
-          <form th:action="@{/produtos}" th:object="${produto}" method="post" id="form-cadastrar-sobremesa">
+          <form th:action="${isEdicao != null and isEdicao} ? @{/produtos/{id}/editar(id=${produto.id})} : @{/produtos}" th:object="${produto}" method="post" id="form-cadastrar-sobremesa">
 
-            <fieldset class="form-grupo">
+            <input type="hidden" th:field="*{id}" />
+
+            <fieldset class="form-grupo" style="border: 1px solid rgba(0,0,0,0.08); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+              <legend style="font-weight: 700; color: var(--color-primary-dark); padding: 0 10px; font-size: 0.95rem;">🍌 Nome & Identificação</legend>
+
               <label for="nome" class="form-label">
                 <span>🍌</span> Nome da Sobremesa:
               </label>
               <div class="input-icone-wrapper">
                 <span class="icone-campo" aria-hidden="true">✨</span>
                 <input type="text" id="nome" th:field="*{nome}" class="form-input"
-                  placeholder="Ex: Torta Holandesa de Banana com Toffee" required>
+                  placeholder="Ex: Torta Holandesa de Banana com Toffee" required minlength="2" maxlength="100">
+              </div>
+              <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro no Nome</span>
+            </fieldset>
+
+            <fieldset class="form-grupo" style="border: 1px solid rgba(0,0,0,0.08); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+              <legend style="font-weight: 700; color: var(--color-primary-dark); padding: 0 10px; font-size: 0.95rem;">📂 Categoria & Calda Especial</legend>
+
+              <div class="form-grid-duplo">
+                <div class="form-grupo">
+                  <label for="categoria" class="form-label">
+                    <span>📂</span> Categoria:
+                  </label>
+                  <div class="input-icone-wrapper">
+                    <span class="icone-campo" aria-hidden="true">🏷️</span>
+                    <select id="categoria" th:field="*{categoria}" class="form-input" style="padding-left: 42px;" required>
+                      <option value="doces">🍮 Caldas & Doces</option>
+                      <option value="bolos">🎂 Bolos & Tortas</option>
+                      <option value="sobremesas">🥞 Sobremesas Especiais</option>
+                      <option value="bebidas">☕ Bebidas com Calda</option>
+                    </select>
+                  </div>
+                  <span th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro na Categoria</span>
+                </div>
+
+                <div class="form-grupo">
+                  <label for="calda" class="form-label">
+                    <span>🍯</span> Tipo da Calda Especial:
+                  </label>
+                  <div class="input-icone-wrapper">
+                    <span class="icone-campo" aria-hidden="true">✨</span>
+                    <input type="text" id="calda" th:field="*{calda}" class="form-input"
+                      placeholder="Ex: Toffee Dourado, Caramelo Salgado" maxlength="100">
+                  </div>
+                  <span th:if="${#fields.hasErrors('calda')}" th:errors="*{calda}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro na Calda</span>
+                </div>
               </div>
             </fieldset>
 
-            <div class="form-grid-duplo">
-              <fieldset class="form-grupo">
-                <label for="categoria" class="form-label">
-                  <span>📂</span> Categoria:
-                </label>
-                <div class="input-icone-wrapper">
-                  <span class="icone-campo" aria-hidden="true">🏷️</span>
-                  <select id="categoria" th:field="*{categoria}" class="form-input" style="padding-left: 42px;" required>
-                    <option value="doces">🍮 Caldas & Doces</option>
-                    <option value="bolos">🎂 Bolos & Tortas</option>
-                    <option value="sobremesas">🥞 Sobremesas Especiais</option>
-                    <option value="bebidas">☕ Bebidas com Calda</option>
-                  </select>
-                </div>
-              </fieldset>
+            <fieldset class="form-grupo" style="border: 1px solid rgba(0,0,0,0.08); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+              <legend style="font-weight: 700; color: var(--color-primary-dark); padding: 0 10px; font-size: 0.95rem;">💰 Preço & Ícone Visual</legend>
 
-              <fieldset class="form-grupo">
-                <label for="calda" class="form-label">
-                  <span>🍯</span> Tipo da Calda Especial:
-                </label>
-                <div class="input-icone-wrapper">
-                  <span class="icone-campo" aria-hidden="true">✨</span>
-                  <input type="text" id="calda" th:field="*{calda}" class="form-input"
-                    placeholder="Ex: Toffee Dourado, Caramelo Salgado" required>
+              <div class="form-grid-duplo">
+                <div class="form-grupo">
+                  <label for="preco" class="form-label">
+                    <span>💰</span> Preço Unitário (R$):
+                  </label>
+                  <div class="input-icone-wrapper">
+                    <span class="icone-campo" aria-hidden="true">💵</span>
+                    <input type="number" step="0.10" min="0.01" id="preco" th:field="*{preco}" class="form-input"
+                      placeholder="19.90" required>
+                  </div>
+                  <span th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro no Preço</span>
                 </div>
-              </fieldset>
-            </div>
 
-            <div class="form-grid-duplo">
-              <fieldset class="form-grupo">
-                <label for="preco" class="form-label">
-                  <span>💰</span> Preço Unitário (R$):
-                </label>
-                <div class="input-icone-wrapper">
-                  <span class="icone-campo" aria-hidden="true">💵</span>
-                  <input type="number" step="0.10" min="1.00" id="preco" th:field="*{preco}" class="form-input"
-                    placeholder="19.90" required>
+                <div class="form-grupo">
+                  <label for="emoji" class="form-label">
+                    <span>🎨</span> Ícone Visual / Emoji:
+                  </label>
+                  <div class="input-icone-wrapper">
+                    <span class="icone-campo" aria-hidden="true">🍌</span>
+                    <select id="emoji" th:field="*{emoji}" class="form-input" style="padding-left: 42px;">
+                      <option value="🍌">🍌 Banana Especial</option>
+                      <option value="🎂">🎂 Bolo / Torta</option>
+                      <option value="🍨">🍨 Sorvete / Taça</option>
+                      <option value="🥞">🥞 Panquecas</option>
+                      <option value="🧇">🧇 Waffle</option>
+                      <option value="🍮">🍮 Pudim</option>
+                      <option value="🥤">🥤 Smoothie</option>
+                      <option value="☕">☕ Cappuccino / Café</option>
+                      <option value="🍫">🍫 Chocolate Nobre</option>
+                      <option value="🍰">🍰 Fatia Doce</option>
+                    </select>
+                  </div>
                 </div>
-              </fieldset>
-
-              <fieldset class="form-grupo">
-                <label for="emoji" class="form-label">
-                  <span>🎨</span> Ícone Visual / Emoji:
-                </label>
-                <div class="input-icone-wrapper">
-                  <span class="icone-campo" aria-hidden="true">🍌</span>
-                  <select id="emoji" th:field="*{emoji}" class="form-input" style="padding-left: 42px;">
-                    <option value="🍌">🍌 Banana Especial</option>
-                    <option value="🎂">🎂 Bolo / Torta</option>
-                    <option value="🍨">🍨 Sorvete / Taça</option>
-                    <option value="🥞">🥞 Panquecas</option>
-                    <option value="🧇">🧇 Waffle</option>
-                    <option value="🍮">🍮 Pudim</option>
-                    <option value="🥤">🥤 Smoothie</option>
-                    <option value="☕">☕ Cappuccino / Café</option>
-                    <option value="🍫">🍫 Chocolate Nobre</option>
-                    <option value="🍰">🍰 Fatia Doce</option>
-                  </select>
-                </div>
-              </fieldset>
-            </div>
-
-            <fieldset class="form-grupo">
-              <label for="descricao" class="form-label">
-                <span>📝</span> Descrição & Ingredientes Nobres:
-              </label>
-              <textarea id="descricao" th:field="*{descricao}" class="cadastro-textarea"
-                placeholder="Descreva a composição, o ponto da calda e a experiência de sabor desta sobremesa..." required></textarea>
+              </div>
             </fieldset>
 
-            <label class="checkbox-destaque">
-              <input type="checkbox" th:field="*{destaque}" id="destaque">
-              <span>Marcar como Destaque na Página Inicial (Home)</span>
-            </label>
+            <fieldset class="form-grupo" style="border: 1px solid rgba(0,0,0,0.08); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+              <legend style="font-weight: 700; color: var(--color-primary-dark); padding: 0 10px; font-size: 0.95rem;">📝 Detalhes & Destaque</legend>
+
+              <div class="form-grupo">
+                <label for="descricao" class="form-label">
+                  <span>📝</span> Descrição & Ingredientes Nobres:
+                </label>
+                <textarea id="descricao" th:field="*{descricao}" class="cadastro-textarea"
+                  placeholder="Descreva a composição, o ponto da calda e a experiência de sabor desta sobremesa..." maxlength="500"></textarea>
+                <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro na Descrição</span>
+              </div>
+
+              <div class="form-grupo">
+                <label class="checkbox-destaque" for="destaque">
+                  <input type="checkbox" th:field="*{destaque}" id="destaque">
+                  <span>Marcar como Destaque na Página Inicial (Home)</span>
+                </label>
+              </div>
+            </fieldset>
 
             <div class="form-acoes-cadastro">
-              <button type="submit" class="btn btn-primary btn-lg" style="flex: 2;">
+              <button type="submit" class="btn btn-primary btn-lg" style="flex: 2;"
+                      th:text="${isEdicao != null and isEdicao} ? 'Salvar Alterações na Sobremesa ➔' : 'Salvar Sobremesa no Cardápio ➔'">
                 Salvar Sobremesa no Cardápio ➔
               </button>
               <a th:href="@{/menu}" href="/menu" class="btn btn-secondary btn-lg" style="flex: 1;">

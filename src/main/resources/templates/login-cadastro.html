@@ -59,6 +59,16 @@
 
     <main class="conteudo-principal">
 
+        <div th:if="${sucesso}" class="toast sucesso" style="position: static; margin: 20px auto; max-width: 500px; display: flex; align-items: center; box-shadow: var(--shadow-md);">
+            <span class="toast-icone">✅</span>
+            <span class="toast-msg" th:text="${sucesso}">Operação realizada com sucesso!</span>
+        </div>
+
+        <div th:if="${erro}" class="toast erro" style="position: static; margin: 20px auto; max-width: 500px; display: flex; align-items: center; box-shadow: var(--shadow-md); background: #f8d7da; color: #721c24; border-left: 5px solid #dc3545; padding: 12px 18px; border-radius: 8px;">
+            <span class="toast-icone">⚠️</span>
+            <span class="toast-msg" th:text="${erro}">Ocorreu um erro!</span>
+        </div>
+
         <div th:if="${mensagemSucesso}" class="toast sucesso" style="position: static; margin: 20px auto; max-width: 500px; display: flex; align-items: center; box-shadow: var(--shadow-md);">
             <span class="toast-icone">🎉</span>
             <span class="toast-msg" th:text="${mensagemSucesso}">Cadastro realizado com sucesso!</span>
@@ -84,17 +94,19 @@
                 <div class="auth-corpo">
 
                     <nav class="auth-tabs-nav" aria-label="Alternar entre Entrar e Cadastrar">
-                        <button type="button" class="auth-tab-btn ativo" id="tab-btn-login"
+                        <button type="button" class="auth-tab-btn" id="tab-btn-login"
+                            th:classappend="${#fields.hasErrors('${usuario.*}')} ? '' : 'ativo'"
                             onclick="alternarAbasAuth('login')">
                             Entrar
                         </button>
                         <button type="button" class="auth-tab-btn" id="tab-btn-cadastro"
+                            th:classappend="${#fields.hasErrors('${usuario.*}')} ? 'ativo' : ''"
                             onclick="alternarAbasAuth('cadastro')">
                             Criar Conta
                         </button>
                     </nav>
 
-                    <form class="auth-form ativo" id="form-login" novalidate>
+                    <form class="auth-form" id="form-login" th:classappend="${#fields.hasErrors('${usuario.*}')} ? '' : 'ativo'" novalidate>
                         <fieldset class="form-grupo">
                             <label for="login-email" class="form-label">
                                 <span>📧</span> E-mail de Acesso:
@@ -133,7 +145,7 @@
                         </button>
                     </form>
 
-                    <form class="auth-form" id="form-cadastro" th:action="@{/cadastrar-usuario}" th:object="${usuario}" method="post">
+                    <form class="auth-form" id="form-cadastro" th:classappend="${#fields.hasErrors('${usuario.*}')} ? 'ativo' : ''" th:action="@{/cadastrar-usuario}" th:object="${usuario}" method="post">
                         <fieldset class="form-grupo">
                             <label for="cad-nome" class="form-label">
                                 <span>👤</span> Nome Completo:
@@ -141,8 +153,9 @@
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">📛</span>
                                 <input type="text" id="cad-nome" th:field="*{nome}" class="form-input" placeholder="Seu nome completo"
-                                    required>
+                                    required minlength="3" maxlength="100">
                             </div>
+                            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro no Nome</span>
                         </fieldset>
 
                         <fieldset class="form-grupo">
@@ -152,8 +165,9 @@
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">✉️</span>
                                 <input type="email" id="cad-email" th:field="*{email}" class="form-input" placeholder="seuemail@exemplo.com"
-                                    required>
+                                    required maxlength="100">
                             </div>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro no E-mail</span>
                         </fieldset>
 
                         <fieldset class="form-grupo">
@@ -163,8 +177,9 @@
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">🔒</span>
                                 <input type="password" id="cad-senha" th:field="*{senha}" class="form-input"
-                                    placeholder="Mínimo 6 caracteres" required>
+                                    placeholder="Mínimo 6 caracteres" required minlength="6" maxlength="255">
                             </div>
+                            <span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro na Senha</span>
                         </fieldset>
 
                         <fieldset class="form-grupo">

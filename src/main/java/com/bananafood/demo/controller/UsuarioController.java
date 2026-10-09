@@ -2,8 +2,10 @@ package com.bananafood.demo.controller;
 
 import com.bananafood.demo.model.Usuario;
 import com.bananafood.demo.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +29,13 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastrar-usuario")
-    public String cadastrar(@ModelAttribute Usuario usuario, RedirectAttributes redirectAttributes) {
+    public String cadastrar(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "login-cadastro";
+        }
         usuarioService.salvar(usuario);
-        redirectAttributes.addFlashAttribute("mensagemSucesso", "Conta criada com sucesso para " + usuario.getNome() + "! Agora você pode entrar.");
+        redirectAttributes.addFlashAttribute("sucesso", "Conta criada com sucesso para " + usuario.getNome() + "! Agora você pode entrar.");
         return "redirect:/login-cadastro?aba=login";
     }
 }
+
