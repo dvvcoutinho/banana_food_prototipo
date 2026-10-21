@@ -35,10 +35,10 @@ public class ProdutoController {
 
     @GetMapping("/produtos/novo")
     public String novoFormulario(Model model) {
-        if (!model.containsAttribute("produto")) {
-            model.addAttribute("produto", new Produto());
-        }
+        model.addAttribute("produto", new Produto());
         model.addAttribute("isEdicao", false);
+        model.addAttribute("tags", produtoService.listarTags());
+        model.addAttribute("usuarios", produtoService.listarUsuarios());
         return "cadastro";
     }
 
@@ -54,13 +54,15 @@ public class ProdutoController {
     }
 
     @PostMapping({ "/produtos", "/produtos/novo" })
-    public String salvar(@Valid @ModelAttribute("produto") Produto produto, BindingResult result, Model model,
+    public String salvar(@Valid Produto produto, BindingResult result, Model model,
             RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("isEdicao", false);
+            model.addAttribute("tags", produtoService.listarTags());
+            model.addAttribute("usuarios", produtoService.listarUsuarios());
             return "cadastro";
         }
-        produtoService.salvar(produto);
+        produtoService.cadastrar(produto);
         redirectAttributes.addFlashAttribute("sucesso",
                 "Sobremesa \"" + produto.getNome() + "\" cadastrada com sucesso no cardápio!");
         return "redirect:/menu";
@@ -75,33 +77,45 @@ public class ProdutoController {
         }
         model.addAttribute("produto", produto);
         model.addAttribute("isEdicao", true);
+        model.addAttribute("tags", produtoService.listarTags());
+        model.addAttribute("usuarios", produtoService.listarUsuarios());
         return "cadastro";
     }
 
     @PostMapping("/produtos/{id}/editar")
-    public String atualizar(@PathVariable Long id, @Valid @ModelAttribute("produto") Produto produto,
-            BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String atualizar(@PathVariable Long id, @Valid Produto produto, BindingResult result,
+            Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             produto.setId(id);
             model.addAttribute("isEdicao", true);
+            model.addAttribute("tags", produtoService.listarTags());
+            model.addAttribute("usuarios", produtoService.listarUsuarios());
             return "cadastro";
         }
-        produto.setId(id);
-        produtoService.salvar(produto);
+        Produto produtoAtualizado = produtoService.atualizar(id, produto);
+        if (produtoAtualizado == null) {
+            redirectAttributes.addFlashAttribute("erro", "Sobremesa não encontrada para edição.");
+            return "redirect:/menu";
+        }
         redirectAttributes.addFlashAttribute("sucesso",
-                "Sobremesa \"" + produto.getNome() + "\" atualizada com sucesso!");
+                "Sobremesa \"" + produtoAtualizado.getNome() + "\" atualizada com sucesso!");
         return "redirect:/menu";
     }
 
     @PostMapping({ "/produtos/{id}/excluir", "/produtos/excluir/{id}" })
     public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        Produto produto = produtoService.buscarPorId(id);
-        if (produto != null) {
-            produtoService.excluir(id);
-            redirectAttributes.addFlashAttribute("sucesso",
-                    "Sobremesa \"" + produto.getNome() + "\" removida do cardápio!");
-        } else {
+        Produto produtoEncontrado = produtoService.buscarPorId(id);
+        if (produtoEncontrado == null) {
             redirectAttributes.addFlashAttribute("erro", "Sobremesa não encontrada para exclusão.");
+            return "redirect:/menu";
+        }
+        boolean foiExcluidoComSucesso = produtoService.excluir(id);
+        if (foiExcluidoComSucesso) {
+            redirectAttributes.addFlashAttribute("sucesso",
+                    "Sobremesa \"" + produtoEncontrado.getNome() + "\" removida do cardápio!");
+        } else {
+            redirectAttributes.addFlashAttribute("erro",
+                    "Sobremesas em destaque não podem ser excluídas. Remova o destaque antes de excluir.");
         }
         return "redirect:/menu";
     }

@@ -152,10 +152,10 @@
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">📛</span>
-                                <input type="text" id="cad-nome" th:field="*{nome}" class="form-input" placeholder="Seu nome completo"
+                                <input type="text" id="cad-nome" th:field="*{nome}" class="form-input" th:errorclass="campo-erro" placeholder="Seu nome completo"
                                     required minlength="3" maxlength="100">
                             </div>
-                            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro no Nome</span>
+                            <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="mensagem-erro"></p>
                         </fieldset>
 
                         <fieldset class="form-grupo">
@@ -164,10 +164,10 @@
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">✉️</span>
-                                <input type="email" id="cad-email" th:field="*{email}" class="form-input" placeholder="seuemail@exemplo.com"
+                                <input type="email" id="cad-email" th:field="*{email}" class="form-input" th:errorclass="campo-erro" placeholder="seuemail@exemplo.com"
                                     required maxlength="100">
                             </div>
-                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro no E-mail</span>
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="mensagem-erro"></p>
                         </fieldset>
 
                         <fieldset class="form-grupo">
@@ -176,10 +176,10 @@
                             </label>
                             <div class="input-icone-wrapper">
                                 <span class="icone-campo" aria-hidden="true">🔒</span>
-                                <input type="password" id="cad-senha" th:field="*{senha}" class="form-input"
+                                <input type="password" id="cad-senha" th:field="*{senha}" class="form-input" th:errorclass="campo-erro"
                                     placeholder="Mínimo 6 caracteres" required minlength="6" maxlength="255">
                             </div>
-                            <span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="erro-campo" style="color: #dc3545; font-size: 0.85rem; margin-top: 4px; display: block; font-weight: 600;">Erro na Senha</span>
+                            <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="mensagem-erro"></p>
                         </fieldset>
 
                         <fieldset class="form-grupo">

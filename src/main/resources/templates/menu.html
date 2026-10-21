@@ -123,43 +123,51 @@
 
     <section class="vitrine-produtos" id="vitrine-produtos-grid" aria-label="Lista de Produtos">
 
-      <article class="produto-card" th:each="prod : ${produtos}">
+      <article class="produto-card" th:each="produto : ${produtos}">
         <header class="produto-drip-header">
           <svg viewBox="0 0 500 40" preserveAspectRatio="none">
             <path d="M0,0 C100,35 150,5 250,30 C350,50 420,10 500,25 L500,0 Z"></path>
           </svg>
-          <span class="badge-calda-tipo" th:text="'Calda: ' + ${prod.calda}">Calda: Toffee Dourado</span>
+          <span class="badge-calda-tipo" th:text="'Calda: ' + ${produto.calda}">Calda: Toffee Dourado</span>
         </header>
 
         <figure class="produto-figura">
-          <span class="produto-emoji" role="img" th:text="${prod.emoji}">🍌</span>
-          <figcaption class="sr-only" th:text="${prod.nome}">Nome da Sobremesa</figcaption>
+          <span class="produto-emoji" role="img" th:text="${produto.emoji}">🍌</span>
+          <figcaption class="sr-only" th:text="${produto.nome}">Nome da Sobremesa</figcaption>
         </figure>
 
         <div class="produto-info">
           <div class="produto-titulos">
-            <h3 th:text="${prod.nome}">Nome do Produto</h3>
-            <p th:text="${prod.descricao}">Descrição do produto e ingredientes nobres.</p>
+            <h3 th:text="${produto.nome}">Nome do Produto</h3>
+            <p th:text="${produto.descricao}">Descrição do produto e ingredientes nobres.</p>
+            
+            <p style="font-size: 0.8rem; color: var(--color-text-muted);">
+              👤 Cadastrado por: <strong th:text="${produto.usuario != null} ? ${produto.usuario.nome} : 'Não informado'">Davi</strong>
+            </p>
+            
+            <div th:if="${produto.tags != null and !produto.tags.isEmpty()}">
+              <span class="tag-badge" th:each="tag : ${produto.tags}" th:text="'🏷️ ' + ${tag.nome}">🏷️ Tag</span>
+            </div>
           </div>
 
           <footer class="produto-rodape">
             <div class="preco-valor">
-              <small>R$</small> <span th:text="${prod.precoFormatado}">16,50</span>
+              <small>R$</small> <span th:text="${produto.precoFormatado}">16,50</span>
             </div>
             <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; align-items: center;">
-              <a th:href="@{/produtos/{id}(id=${prod.id})}" class="btn btn-secondary btn-sm" title="Ver detalhes completos">
+              <a th:href="@{/produtos/{id}(id=${produto.id})}" class="btn btn-secondary btn-sm" title="Ver detalhes completos">
                 🔍 Ver
               </a>
-              <a th:href="@{/produtos/{id}/editar(id=${prod.id})}" class="btn btn-secondary btn-sm" title="Editar sobremesa" style="background-color: #fff3cd; color: #856404; border-color: #ffeeba;">
+              <a th:href="@{/produtos/{id}/editar(id=${produto.id})}" class="btn btn-secondary btn-sm" title="Editar sobremesa" style="background-color: #fff3cd; color: #856404; border-color: #ffeeba;">
                 ✏️ Editar
               </a>
-              <form th:action="@{/produtos/{id}/excluir(id=${prod.id})}" method="post" style="display: inline;" onsubmit="return confirm('Deseja realmente excluir esta sobremesa do cardápio?');">
+              <form th:action="@{/produtos/{id}/excluir(id=${produto.id})}" method="post" style="display: inline;" onsubmit="return confirm('Deseja realmente excluir esta sobremesa do cardápio?');">
                 <button type="submit" class="btn btn-sm" title="Excluir sobremesa" style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
                   🗑️ Excluir
                 </button>
               </form>
               <button type="button" class="btn btn-primary btn-sm"
-                th:attr="onclick=|adicionarAoCarrinho(${prod.id}, '${prod.nome}', ${prod.preco}, '${prod.emoji}')|">
+                th:attr="onclick=|adicionarAoCarrinho(${produto.id}, '${produto.nome}', ${produto.preco}, '${produto.emoji}')|">
                 + Pedido
               </button>
             </div>

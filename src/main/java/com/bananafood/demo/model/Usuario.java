@@ -107,4 +107,3 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
     }
 }
-

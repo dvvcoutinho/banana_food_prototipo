@@ -1,112 +1,29 @@
 package com.bananafood.demo.service;
 
 import com.bananafood.demo.model.Produto;
+import com.bananafood.demo.model.Tag;
+import com.bananafood.demo.model.Usuario;
 import com.bananafood.demo.repository.ProdutoRepository;
+import com.bananafood.demo.repository.TagRepository;
+import com.bananafood.demo.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
+    private final TagRepository tagRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public ProdutoService(ProdutoRepository produtoRepository) {
+    public ProdutoService(ProdutoRepository produtoRepository,
+                          TagRepository tagRepository,
+                          UsuarioRepository usuarioRepository) {
         this.produtoRepository = produtoRepository;
-        carregarDadosIniciais();
-    }
-
-    private void carregarDadosIniciais() {
-        if (produtoRepository.count() == 0) {
-            salvar(new Produto(
-                    null,
-                    "Banoffee Suprema com Calda de Toffee Dourado",
-                    "doces",
-                    16.50,
-                    "🍌",
-                    "Camadas crocantes de biscoito, banana fresca selecionada, doce de leite artesanal e calda toffee escorrendo.",
-                    "Toffee Dourado",
-                    true
-            ));
-
-            salvar(new Produto(
-                    null,
-                    "Bolo de Banana Caramelizada com Calda Quente",
-                    "bolos",
-                    26.90,
-                    "🎂",
-                    "Massa fofinha com centro quente e erupção de calda cremosa e bananas flambadas.",
-                    "Caramelo Quente",
-                    true
-            ));
-
-            salvar(new Produto(
-                    null,
-                    "Panquecas Americanas de Banana com Mel Dourado",
-                    "sobremesas",
-                    19.50,
-                    "🥞",
-                    "Torre de panquecas fofas com fatias de banana e cascata de mel silvestre puro com brilho.",
-                    "Mel Nobre",
-                    false
-            ));
-
-            salvar(new Produto(
-                    null,
-                    "Banana Split Suprema com Calda Duo Chocolate & Caramelo",
-                    "sobremesas",
-                    24.90,
-                    "🍨",
-                    "Sorvetes cremosos com banana fatiada e cascata de chocolate nobre e caramelo salgado.",
-                    "Duo Chocolate & Caramelo",
-                    true
-            ));
-
-            salvar(new Produto(
-                    null,
-                    "Waffle Belga com Banana Flambada e Canela",
-                    "sobremesas",
-                    22.00,
-                    "🧇",
-                    "Waffle dourado e crocante coberto por bananas douradas na manteiga e calda de açúcar mascavo.",
-                    "Caramelo de Canela",
-                    false
-            ));
-
-            salvar(new Produto(
-                    null,
-                    "Pudim Tradicional com Calda Espelhada de Caramelo",
-                    "doces",
-                    14.00,
-                    "🍮",
-                    "Pudim aveludado sem furinhos regado por uma farta calda de açúcar caramelizado brilhante.",
-                    "Caramelo Espelhado",
-                    false
-            ));
-
-            salvar(new Produto(
-                    null,
-                    "Smoothie de Banana & Morango com Borda de Calda",
-                    "bebidas",
-                    15.00,
-                    "🥤",
-                    "Bebida ultra cremosa e refrescante servida em copo decorado com calda de frutas vermelhas.",
-                    "Frutas Vermelhas",
-                    false
-            ));
-
-            salvar(new Produto(
-                    null,
-                    "Cappuccino Banana Toffee Cremoso",
-                    "bebidas",
-                    13.90,
-                    "☕",
-                    "Café expresso especial com leite vaporizado, aroma suave de banana e fios de calda toffee.",
-                    "Toffee Especial",
-                    false
-            ));
-        }
+        this.tagRepository = tagRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public List<Produto> listarTodos() {
@@ -115,6 +32,14 @@ public class ProdutoService {
 
     public List<Produto> listarDestaques() {
         return produtoRepository.findAll();
+    }
+
+    public List<Tag> listarTags() {
+        return tagRepository.findAll();
+    }
+
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
     }
 
     public Produto buscarPorId(Long id) {
@@ -128,21 +53,65 @@ public class ProdutoService {
         return produtoRepository.filtrar(categoria, busca);
     }
 
-    @Transactional
-    public Produto salvar(Produto produto) {
+    public Produto cadastrar(Produto produto) {
+        if (produto.getStatus() == null || produto.getStatus().trim().isEmpty()) {
+            produto.setStatus("DISPONIVEL");
+        }
         if (produto.getEmoji() == null || produto.getEmoji().trim().isEmpty()) {
             produto.setEmoji(definirEmojiPadrao(produto.getCategoria()));
         }
+        produto.setUsuario(buscarUsuario(produto.getUsuario()));
+        produto.setTags(buscarTags(produto.getTags()));
         return produtoRepository.save(produto);
     }
 
-    @Transactional
-    public boolean excluir(Long id) {
-        if (id != null && produtoRepository.existsById(id)) {
-            produtoRepository.deleteById(id);
-            return true;
+    public Produto atualizar(Long id, Produto dadosAtualizados) {
+        Produto produtoExistente = buscarPorId(id);
+        if (produtoExistente == null) {
+            return null;
         }
-        return false;
+        produtoExistente.setNome(dadosAtualizados.getNome());
+        produtoExistente.setCategoria(dadosAtualizados.getCategoria());
+        produtoExistente.setPreco(dadosAtualizados.getPreco());
+        produtoExistente.setEmoji(dadosAtualizados.getEmoji());
+        produtoExistente.setDescricao(dadosAtualizados.getDescricao());
+        produtoExistente.setCalda(dadosAtualizados.getCalda());
+        produtoExistente.setDestaque(dadosAtualizados.isDestaque());
+        produtoExistente.setUsuario(buscarUsuario(dadosAtualizados.getUsuario()));
+        produtoExistente.setTags(buscarTags(dadosAtualizados.getTags()));
+        return produtoRepository.save(produtoExistente);
+    }
+
+    public boolean excluir(Long id) {
+        Produto produto = buscarPorId(id);
+        if (produto == null || produto.isDestaque()) {
+            return false;
+        }
+        produtoRepository.deleteById(id);
+        return true;
+    }
+
+    private Usuario buscarUsuario(Usuario usuario) {
+        if (usuario == null || usuario.getId() == null) {
+            return null;
+        }
+        return usuarioRepository.findById(usuario.getId()).orElse(null);
+    }
+
+    private List<Tag> buscarTags(List<Tag> tags) {
+        List<Tag> tagsEncontradas = new ArrayList<>();
+        if (tags == null) {
+            return tagsEncontradas;
+        }
+        for (Tag tag : tags) {
+            if (tag != null && tag.getId() != null) {
+                Tag tagEncontrada = tagRepository.findById(tag.getId()).orElse(null);
+                if (tagEncontrada != null) {
+                    tagsEncontradas.add(tagEncontrada);
+                }
+            }
+        }
+        return tagsEncontradas;
     }
 
     private String definirEmojiPadrao(String categoria) {
@@ -155,5 +124,3 @@ public class ProdutoService {
         };
     }
 }
-
-

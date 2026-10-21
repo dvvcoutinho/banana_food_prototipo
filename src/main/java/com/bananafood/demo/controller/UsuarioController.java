@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,13 +28,17 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastrar-usuario")
-    public String cadastrar(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String cadastrar(@Valid Usuario usuario, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+        if (!result.hasFieldErrors("email") && usuarioService.emailJaCadastrado(usuario.getEmail())) {
+            result.rejectValue("email", "email.duplicado", "Este e-mail já está cadastrado");
+        }
+
         if (result.hasErrors()) {
             return "login-cadastro";
         }
-        usuarioService.salvar(usuario);
+
+        usuarioService.cadastrar(usuario);
         redirectAttributes.addFlashAttribute("sucesso", "Conta criada com sucesso para " + usuario.getNome() + "! Agora você pode entrar.");
         return "redirect:/login-cadastro?aba=login";
     }
 }
-

@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
-    @Query("SELECT p FROM Produto p WHERE " +
-           "(:categoria IS NULL OR :categoria = '' OR LOWER(:categoria) = 'todos' OR LOWER(p.categoria) = LOWER(:categoria)) AND " +
-           "(:busca IS NULL OR :busca = '' OR LOWER(p.nome) LIKE LOWER(CONCAT('%', :busca, '%')) OR LOWER(p.descricao) LIKE LOWER(CONCAT('%', :busca, '%')))")
+    @Query("SELECT produto FROM Produto produto WHERE " +
+           "(:categoria IS NULL OR :categoria = '' OR LOWER(:categoria) = 'todos' OR LOWER(produto.categoria) = LOWER(:categoria)) AND " +
+           "(:busca IS NULL OR :busca = '' OR LOWER(produto.nome) LIKE LOWER(CONCAT('%', :busca, '%')) OR LOWER(produto.descricao) LIKE LOWER(CONCAT('%', :busca, '%')))")
     List<Produto> filtrar(@Param("categoria") String categoria, @Param("busca") String busca);
 }

@@ -3,10 +3,8 @@ package com.bananafood.demo.service;
 import com.bananafood.demo.model.Usuario;
 import com.bananafood.demo.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -15,34 +13,52 @@ public class UsuarioService {
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
-        carregarDadosIniciais();
-    }
-
-    private void carregarDadosIniciais() {
-        if (usuarioRepository.count() == 0) {
-            salvar(new Usuario("Davi Cliente", "davi@exemplo.com", "123456", "toffee"));
-        }
     }
 
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> buscarPorEmail(String email) {
-        if (email == null) return Optional.empty();
-        return usuarioRepository.findByEmail(email);
+    public Usuario buscarPorId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return usuarioRepository.findById(id).orElse(null);
     }
 
-    @Transactional
-    public Usuario salvar(Usuario usuario) {
+    public boolean emailJaCadastrado(String email) {
+        if (email == null) {
+            return false;
+        }
+        return usuarioRepository.existsByEmail(email);
+    }
+
+    public Usuario cadastrar(Usuario usuario) {
         return usuarioRepository.save(usuario);
+    }
+
+    public Usuario atualizar(Long id, Usuario dadosAtualizados) {
+        Usuario usuarioExistente = buscarPorId(id);
+        if (usuarioExistente == null) {
+            return null;
+        }
+        usuarioExistente.setNome(dadosAtualizados.getNome());
+        usuarioExistente.setEmail(dadosAtualizados.getEmail());
+        usuarioExistente.setSenha(dadosAtualizados.getSenha());
+        return usuarioRepository.save(usuarioExistente);
+    }
+
+    public boolean excluir(Long id) {
+        if (buscarPorId(id) == null) {
+            return false;
+        }
+        usuarioRepository.deleteById(id);
+        return true;
     }
 
     public boolean autenticar(String email, String senha) {
         if (email == null || senha == null) return false;
-        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
-        return usuarioOpt.isPresent() && senha.equals(usuarioOpt.get().getSenha());
+        Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
+        return usuario != null && senha.equals(usuario.getSenha());
     }
 }
-
-

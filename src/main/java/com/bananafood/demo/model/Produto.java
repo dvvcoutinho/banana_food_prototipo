@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @Entity
@@ -18,12 +20,12 @@ public class Produto {
     private Long id;
 
     @NotBlank(message = "O nome é obrigatório")
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
     @Column(nullable = false, length = 100)
     private String nome;
 
     @NotBlank(message = "A categoria é obrigatória")
-    @Size(max = 50)
+    @Size(max = 50, message = "A categoria deve ter no máximo 50 caracteres")
     @Column(nullable = false, length = 50)
     private String categoria;
 
@@ -32,25 +34,39 @@ public class Produto {
     @Column(nullable = false)
     private Double preco;
 
-    @Transient
+    @Column(length = 10)
     private String emoji = "🍌";
 
-    @Size(max = 500)
+    @Size(max = 500, message = "A descrição pode ter no máximo 500 caracteres")
     @Column(length = 500)
     private String descricao;
 
-    @Transient
+    @Size(max = 100)
+    @Column(length = 100)
     private String calda;
 
     @Column(name = "imagem_url", length = 255)
     @Size(max = 255)
     private String imagemUrl;
 
-    @Transient
+    @Column(nullable = false)
     private boolean destaque;
+
+    @Column(length = 30)
+    private String status;
 
     @Column(name = "data_criacao", insertable = false, updatable = false)
     private LocalDateTime dataCriacao;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @ManyToMany
+    @JoinTable(name = "produto_tags",
+            joinColumns = @JoinColumn(name = "id_produto"),
+            inverseJoinColumns = @JoinColumn(name = "id_tag"))
+    private List<Tag> tags = new ArrayList<>();
 
     public Produto() {
         this.emoji = "🍌";
@@ -147,6 +163,30 @@ public class Produto {
         this.dataCriacao = dataCriacao;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
     public String getPrecoFormatado() {
         if (preco == null) {
             return "0,00";
@@ -154,4 +194,3 @@ public class Produto {
         return String.format(Locale.forLanguageTag("pt-BR"), "%.2f", preco);
     }
 }
-

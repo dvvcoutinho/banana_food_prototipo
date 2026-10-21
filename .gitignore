@@ -34,6 +34,12 @@ build/
 
 *.exe
 *.old
+*.log
 
-*.exe
-*.old
+# Credenciais e arquivos de ambiente locais
+credenciais.properties
+
+# Ferramentas CLI e agentes
+.agents/
+.gemini/
+agy/
